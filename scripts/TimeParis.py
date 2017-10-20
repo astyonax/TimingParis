@@ -9,7 +9,24 @@ myCMkey = open('citymapper.key').read().strip()
 import lib
 reload(lib)
 # reload(citymapper)
+import json
+import numpy as np
+import pandas as pd
+from string import atof
+import pandas as pd
+import cPickle as pkl
+import cPickle
+import numpy as np
+from string import atof
+import time
+from concurrent import futures
+from functools import partial
 
+import os
+# In[10]:
+
+from tqdm import tnrange, tqdm_notebook,tqdm
+import traceback
 
 # In[2]:
 
@@ -23,7 +40,7 @@ class directions(object):
 
         TODO: memoize with dict & singleton
     """
-    def __init__(self,key,load_cache=True):
+    def __init__(self,key,load_cache=False):
         self.gmaps = googlemaps.Client(key=key)
         self.calls = 0
         self.memo  = {}
@@ -55,23 +72,22 @@ class directions(object):
         return self.memo[key]
 
     def _save(self):
-        import cPickle
         with open('data/.directions_cache.pkl','wb') as fout:
             cPickle.dump(self.memo,fout)
 
     def _load(self):
-        import cPickle
+
         with open('data/.directions_cache.pkl','rb') as fout:
             self.memo = cPickle.load(fout)
 
-GMapDirections = directions(mykey,load_cache=True)
+GMapDirections = directions(mykey,load_cache=False)
 # CMtime         =citymapper.citymapper(myCMkey)
 len(GMapDirections.memo.keys())
 
 
 # In[3]:
 
-import numpy as np
+
 
 def haversine(la1,lo1,la2,lo2):
     """
@@ -91,27 +107,6 @@ def haversine(la1,lo1,la2,lo2):
 
 # In[4]:
 
-import json
-import numpy as np
-# import seaborn as sns
-# sns.set_context('paper')
-import pandas as pd
-# import matplotlib as mpl
-from string import atof
-# from ipyleaflet import (
-#     Map,
-#     Marker,
-#     TileLayer, ImageOverlay,
-#     Polyline, Polygon, Rectangle, Circle, CircleMarker,
-#     GeoJSON,
-#     DrawControl
-# )
-
-
-# In[5]:
-
-import pandas as pd
-import cPickle as pkl
 
 fdin = 'sample_points/inside.pkl'
 with open(fdin,'rb') as fin:
@@ -131,8 +126,6 @@ print len(points_outside)
 
 # In[7]:
 
-from string import atof
-import time
 
 def get_travel_times(p1,p2,departure=None,modes=None,filter_distance=False):
     # compute the 'big-circle' distance
@@ -244,14 +237,8 @@ print GMapDirections.calls
 
 # In[9]:
 
-from concurrent import futures
-
-
-# In[10]:
-
-from tqdm import tnrange, tqdm_notebook,tqdm
 tqdm_notebook = tqdm
-import traceback
+
 
 def run_many_extend_no_fail(f,x,max_workers=10,tqdm=False,quiet=False,total=None):
     out = []
@@ -263,12 +250,15 @@ def run_many_extend_no_fail(f,x,max_workers=10,tqdm=False,quiet=False,total=None
     max_workers = min(max_workers,total)
     if max_workers>1:
         with futures.ThreadPoolExecutor(max_workers=max_workers) as executor:
+            print 'appending jobs'
             for ix in x:
                 job = executor.submit(f,*ix)
                 jobs.append(job)
+
             asc_jobs = futures.as_completed(jobs)
             if tqdm:
                 asc_jobs = tqdm_notebook(asc_jobs,total=total)
+            print 'executing jobs'
             for job in asc_jobs:
                 try:
                     records = job.result()
@@ -324,10 +314,13 @@ x=[[1,1,1],[.5,.5,.5],[.2,.2,.2],[.2,.2,.2],[.2,.2,.2],[.1,.1,.1]]*15
 class NN_pair_from(object):
     def __init__(self,X,Y=False,howmany=False):
         self.X = X
-        if Y==False:
+        try:
+            len(Y)
+        except AttributeError:
             self.Y=X
         else:
             self.Y=Y
+
         self.N = X.shape[0]
         self.count = 0
         self.howmany=howmany
@@ -346,18 +339,20 @@ class NN_pair_from(object):
 
 # In[13]:
 
-from time import gmtime, strftime
-from functools import partial
 
+from time import strftime,gmtime
 def get_data(X,Y,name,N):
+
+    print 'running:', name
     depart = lib.nextdayat(lib.days.monday,8,)
     now = strftime("%Y-%m-%d-%H-%M-%S", gmtime())
+
     points = NN_pair_from(X,Y,N)
 
     fnout = 'data/{:s}_{:s}.pdpkl'.format(name,now)
     latest = 'data/{:s}_latest'.format(name)
 
-    import cPickle
+    # import cPickle
     try:
         with open(latest,'rb') as fin:
             data_out=cPickle.load(fin)
@@ -368,22 +363,13 @@ def get_data(X,Y,name,N):
 
     try:
         func = partial(get_travel_times,departure=depart)
-        data_out.extend(run_many_extend_no_fail(func,points,total=len(points),max_workers=10,quiet=True,tqdm=True))
+        data_out.extend(run_many_extend_no_fail(func,points,total=len(points),max_workers=2,quiet=True,tqdm=True))
     finally:
         GMapDirections._save()
-        import pandas as pd
-        import os
+
         df = pd.DataFrame(data_out)
 
         df.to_pickle(fnout)
-#         latest +='.pdpkl'
-#         try:
-#             os.remove(latest)
-#         except OSError:
-#             pass
-#         finally:
-#             os.symlink(os.path.abspath(fnout),os.path.abspath(latest))
-
         print u' Done :)'
     return df
 
@@ -396,21 +382,14 @@ tests=[{'name':'inside','X':points_inside,'Y':points_inside},
        {'name':'bigpar','X':bigparis,'Y':bigparis}]
 
 GMapDirections._save()
-GMapDirections = directions(mykey,load_cache=True)
+GMapDirections = directions(mykey,load_cache=False)
 for ix in range(len(tests)):
+    # test = tests[ix]
+    # X = test['X']
+    # Y = test['Y']
+    # name = test['name']
     df = get_data(N=2500/3/len(tests),**tests[ix])
-print 'total calls:',GMapDirections.calls
-
-
-# In[15]:
-
-print GMapDirections.calls
-print len(df)
-
-
-# In[16]:
-
-df.groupby(('mode','kind')).count()
-
-
-# In[ ]:
+    # df = get_data(N=2500/3/len(tests),X=X,Y=Y,name=name)
+# print 'total calls:',GMapDirections.calls
+#
+#print df.groupby(('mode','kind')).count()
