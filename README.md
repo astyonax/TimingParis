@@ -37,11 +37,12 @@ The need for safety and care is already constantly highlighted, for instance, on
 
 *`Data:` Google Maps -- `Period:` February - April 2017 -- `# of trips:` ~21690 -- `Code`: [Time Paris](notebooks/TimeParis.ipynb)*
 
-The plot shows the ETA (estimated time of arrival) for trips between random points within Paris by 4 different means of transport. The ETA for transit is a total time which sums together approaching, waiting, and traveling times.
+The plot shows the ETA (estimated time of arrival) for trips between random points within Paris by 3 different means of transport (Comparison with transit [here](#transit)).
 Points correspond to the raw data. Solid line is the mean trend, shaded areas correspond to 1 std from average. Solid thin black lines correspond to characteristic velocities.
 The x-axis has two equivalent scales: geodetic distance in km, computed with the [haversine rule](https://en.wikipedia.org/wiki/Haversine_formula), and the corresponding walking time at 3.5 km/h.
 The mark at 5km is about the radius of the periferique from Notre Dame.
 
+The ETA for transit is a total time which sums together approaching, waiting, and traveling times.
 **Note** that comparison of driving time versus transit time is **unfair** because transit time counts also the approaching and waiting times, for cars and bikes only the travel time is considered.
 Although with the current protocol transit time is, at worst, just 15 min slower than driving time, which seems about the dead time one would expect because of parking and approaching, I do not have a quantitative estimate. Hence, *I continue the analysis ignoring the transit time*.
 
@@ -102,7 +103,7 @@ Here we explore the network properties of the ways that are more convenient to c
 Histograms of passages. I tessellated the city in ~50mx50m bins counting how often a trip goes through each bin. Hence, the brighter a point, the more often it is visited.
 The left (right) panel shows where it is more convenient to go by car (bike). Without much surprise, the trajectories are on streets. So the two histograms highlight the streets (or parts of streets) which act as hubs for bikes and cars.
 
-Since each path is also the optimal path between two points, this may be linked to a measure of betweeness of each node of the network, where a node is a pixel (see [Network properties](network.md)).
+<! --Since each path is also the optimal path between two points, this may be linked to a measure of betweeness of each node of the network, where a node is a pixel (see [Network properties](network.md)). -->
 
 From the left panel (1) there is no evident area of Paris in which cars are systematically  less convenient, and (2) the density of passages is very similar to the [real one](https://github.com/astyonax/heartbeat-traffic).
 This evidence may support the idea that a uniform distribution of departures and destinations is reasonable to represent the real distribution of trips (**TODO**: quantify this).
@@ -242,16 +243,17 @@ I showed that
 
 7. In comparison to mobility within the city,  the suburbs strongly disadvantage bicycling. Is there an official figure of number of trips by means of transport? 
 
-2. Comparing the attractors of the  bicycling network inside Paris, with the Plan Velo 2015-2020 we can see some overlap; but the overlap is not perfect. Why?
+2. Comparing the attractors of the  bicycling network inside Paris, with the Plan Velo 2015-2020 we can see some overlap; but the overlap is not perfect. More seems needed to support bicycling right outside of Paris.
 
 3. When comparing the Plan Velo with the optimal paths connecting the suburbs with the city center, it happens to see that the problem of crossing the major city doors is not yet fully addressed.
 
 Finally, building on this works it will be interesting to:
 
 2. solve most TODOs, ofc ;)
+1. Correlated infrastructure with current bike network (in preparation)
 
 3. From the previous plots 2 new effective networks arise: that convenient to cars and that to bikes.  I want to:
-	1. Characterize them as usually done for networks (so centrality/betweeness/etc..)
+	1. Characterize them as usually done for networks (so centrality/betweeness/etc..) (in preparation too)
 	2. Use that info to optimize the network
 
 
@@ -268,6 +270,16 @@ Since I used Google's data and routing engine, I don't have full control of the 
 
 The plot above shows that the average distance of departure points is 100 m and 150 m inside and outside Paris, respectively.
 
+### Transit 
+![plots/inside_timing.png](plots/inside_timing_full.png  "ETA for trips inside Paris")
+
+*`Data:` Google Maps -- `Period:` February - April 2017 -- `# of trips:` ~21690 -- `Code`: [Time Paris](notebooks/TimeParis.ipynb)*
+
+
+The ETA for transit is a total time which sums together approaching, waiting, and traveling times.
+**Note** that comparison of driving time versus transit time is **unfair** because transit time counts also the approaching and waiting times, for cars and bikes only the travel time is considered.
+Although with the current protocol transit time is, at worst, just 15 min slower than driving time, which seems about the dead time one would expect because of parking and approaching, I do not have a quantitative estimate. Hence, *I did the analysis ignoring the transit time*.
+
 # Literature
 ## Cited academic articles
 
@@ -278,8 +290,6 @@ The plot above shows that the average distance of departure points is 100 m and 
 
 ### Bibliography
 
-1. Albert, R. & Barabási, A.-L. Statistical mechanics of complex networks. Reviews of modern physics 74, 47 (2002).
-2. Albert and Barabási - 2002 - Statistical mechanics of complex networks.pdf.
 3. von Ferber, C., Berche, B., Holovatch, T. & Holovatch, Y. A tale of two cities. Vulnerabilities of the London and Paris transit networks. Journal of Transportation Security 5, 199–216 (2012).
 4. Freeman, L. A Set of Measures of Centrality Based on Betweenness. Sociometry 40, 35–41 (1977).
 5. Barthelemy, M., Bordin, P., Berestycki, H. & Gribaudi, M. Self-organization versus top-down planning in the evolution of a city. Scientific Reports 3, (2013).
