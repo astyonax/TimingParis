@@ -40,10 +40,12 @@ The need for safety and care is already constantly highlighted, for instance, on
 The plot shows the ETA (estimated time of arrival) for trips between random points within Paris by 4 different means of transport. The ETA for transit is a total time which sums together approaching, waiting, and traveling times.
 Points correspond to the raw data. Solid line is the mean trend, shaded areas correspond to 1 std from average. Solid thin black lines correspond to characteristic velocities.
 The x-axis has two equivalent scales: geodetic distance in km, computed with the [haversine rule](https://en.wikipedia.org/wiki/Haversine_formula), and the corresponding walking time at 3.5 km/h.
-
 The mark at 5km is about the radius of the periferique from Notre Dame.
 
-Two different pictures arise: one for distances shorter than 5km, and one for distances  bigger than 5km.
+**Note** that comparison of driving time versus transit time is **unfair** because transit time counts also the approaching and waiting times, for cars and bikes only the travel time is considered.
+Although with the current protocol transit time is, at worst, just 15 min slower than driving time, which seems about the dead time one would expect because of parking and approaching, I do not have a quantitative estimate. Hence, *I continue the analysis ignoring the transit time*.
+
+One can read two tales from the plot about: one for distances shorter than 5km, and one for distances  bigger than 5km.
 
 1. Case of trips shorter than 5km:
 
@@ -62,7 +64,7 @@ In this 2011 [study](http://dl.acm.org/citation.cfm?id=2560188), it is shown (fi
 
 ![plots/inside_hist_dist_mode.png](plots/inside_hist_dist_mode.png  "Histogram of trips with are more convenient by car or bike versus traveled distance")
 
-*(**left**) The two histograms show the distribution of traveled distance by means of transport. (**right**) Distribution of geodetic distances only of convenient trip  by means of transport.  [[Code](notebooks/TimeParis-plots-kgCO2.ipynb)]*
+*(**left**) The two histograms show the distribution of traveled distance by means of transport. (**right**) Distribution of geodetic distances only of convenient trip  by means of transport.  Bin width: 1 km. [[Code](notebooks/TimeParis-plots-kgCO2.ipynb)]*
 
 The histogram on the left panel shows that for, the same departures and destinations, cars may need longer trajectories than bikes.
 Is this in contradiction with the previous observation that bikes and cars may share the same network constraints? Since the histogram begin to diverge at about 5km, it can be that the difference is due to the periferique: a path in the periferique is faster but longer than in regular streets.
@@ -77,12 +79,12 @@ Remember that I am already ignoring safety, comfort, and infrastructure.
 
 *Estimated CO<sub>2</sub> production per passenger per trip for uniform trip distribution. Carbon production is estimated from the Refs. [1, 2]. Remember that these histograms are not weighted with the real trips distribution, hence it's not representative of the current production. The label `car < bike` stands for cars faster than bikes, viceversa `car > bike` means the opposite. [[Code](notebooks/TimeParis-plots-kgCO2.ipynb)]*
 
-Useless to say, every means of transport has an impact on CO<sub>2</sub> production. Bikes and public transport of course make no exception (Refs. [1, 2]). For bike the estimate considers production, maintenance and fuel. The figure above shows the total impact on carbon production if bikes were always chosen when more convenient. For the uniform distribution of trips I employed, this would lead to **~20%** less kg CO<sub>2</sub>/passenger/trip.
+Useless to say, every means of transport has an impact on CO~2~ production. Bikes and public transport of course make no exception (Refs. [1, 2]). For bike the estimate considers production, maintenance and fuel. The figure above shows the total impact on carbon production if bikes were always chosen when more convenient. For the uniform distribution of trips I employed, this would lead to **~20%** less kg CO~2~/passenger/trip.
 
-So, in spite of a 35% of trips which are more convenient by bike, we get a mere 20% reduction of CO<sub>2</sub> production.
+So, in spite of a 35% of trips which are more convenient by bike, we get a mere 20% reduction of CO~2~ production.
 One reason may be found on the distribution of trips favourable by bike.
 As noted already in the previous section **"Comparing Trips"**, bikes win over cars on short trajectories.
-Hence they take away a smaller part of the total CO<sub>2</sub>production.
+Hence they take away a smaller part of the total CO~2~ production.
 
 > **Speculative thoughts warning**
 >
@@ -95,7 +97,7 @@ Here we explore the network properties of the ways that are more convenient to c
 
 ![plots/inside_cfg.png](plots/inside_cfg.png  "plots/inside_cfg.png")
 
-*(**Left**) Where cars go when it's more convenient to them, (**Right**) Where bikes go when it is more convenient. (Colorcode): increasing from black to red to white. The scale is not linear to show also low intensity signal: I used the square root. [[Code](notebooks/TimeParis-plots-map.ipynb)].*
+*(**Left**) Where cars go when it's more convenient to them, (**Right**) Where bikes go when it is more convenient. (Colorcode): increasing from black to red to white. The scale is not linear to show also low intensity signal: I used the square root. Bin width: approx 50 m x 50 m [[Code](notebooks/TimeParis-plots-map.ipynb)].*
 
 Histograms of passages. I tessellated the city in ~50mx50m bins counting how often a trip goes through each bin. Hence, the brighter a point, the more often it is visited.
 The left (right) panel shows where it is more convenient to go by car (bike). Without much surprise, the trajectories are on streets. So the two histograms highlight the streets (or parts of streets) which act as hubs for bikes and cars.
@@ -133,7 +135,7 @@ In the previous section we've seen that the north-west of Paris, and in particul
 The comparison was done among all possible trips in which bikes are faster than cars. Hence, it shadows local structure among the trips.
 
 To reveal hidden structure we need to change point-of-view.
-We are used to think that trips connect two points A, and B on a plane. To find whether we are missing hidden structure, I map departure and destination to one point in 4D space. Thus, given departure A=(Ax,Ay) and destination B=(Bx,By), we get C=(Ax,Ay,Bx,By). The tuple is ordered, the point obtained swapping departure and destination D=(Bx,By,Ax,Ay) represents the backward trip, hence C is different than D (i.e. C-D $\neq$ 0).
+We are used to think that trips connect two points A, and B on a plane. To find whether we are missing hidden structure, I map departure and destination to one point in 4D space. Thus, given departure A=(Ax,Ay) and destination B=(Bx,By), we get C=(Ax,Ay,Bx,By). The tuple is ordered, the point obtained swapping departure and destination D=(Bx,By,Ax,Ay) represents the backward trip, hence C is different than D (i.e. C-D $\neq$ (0,0,0,0)).
 
 With this approach, K-means clustering distinguishes between trip directions and clusters contain also the directional information, not just the geometrical connection.
 
@@ -260,6 +262,12 @@ The data is obtained by querying Google maps API for the travel time at _8am_ on
 This means that I don't compare the actual usage of the network, because for Paris we don't have the datasets. The only study I know which had access to Velibs trips is from 2011 [[here]](http://dl.acm.org/citation.cfm?id=2560188). I know of no study with similar data on trips by car or transit. Clearly it would be very interesting to compare directly Velib trajectories with respect to car or taxis trajectories, as done in here for [NYC](http://toddwschneider.com/posts/taxi-vs-citi-bike-nyc/), but at the moment I didn't find a way.
 
 Since I used Google's data and routing engine, I don't have full control of the machinery, which behaves like a black-box. My reasoning behind it are: 1. simplicity (it just works) 2. people use it and follow its indications, so it may even be less worse than expected 3. the proposed trajectories pass through way-points with the same density to the [real-data](https://github.com/astyonax/heartbeat-traffic) 4. with custom routing engine (e.g. OSRM) we may as well be quite wrong 5. for bikes, alternative routing software exists, but it is not well tested in Paris. So, let it be Google.
+
+### How many points
+![plots/average_distance.png](plots/average_distance.png)
+*Distribution of departure points either inside or outside Paris [[Code]](notebooks/SamleParis.ipynb).*
+
+The plot above shows that the average distance of departure points is 100 m and 150 m inside and outside Paris, respectively.
 
 # Literature
 ## Cited academic articles
