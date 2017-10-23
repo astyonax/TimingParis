@@ -1,7 +1,7 @@
 # Plots Summary
 
 This is a self-generated list of the available plots
-**Dated:** *20, Oct 2017 @ 18:42*
+**Dated:** *23, Oct 2017 @ 23:33*
 
 
 ![plots/average_distance.png](plots/average_distance.png  "plots/average_distance.png")
@@ -46,6 +46,14 @@ This is a self-generated list of the available plots
 
 ![plots/bigpar_timing.png](plots/bigpar_timing.png  "plots/bigpar_timing.png")
 *plots/bigpar_timing.png*
+---
+
+![plots/bigpar_timing_full.png](plots/bigpar_timing_full.png  "plots/bigpar_timing_full.png")
+*plots/bigpar_timing_full.png*
+---
+
+![plots/departure_points.png](plots/departure_points.png  "plots/departure_points.png")
+*plots/departure_points.png*
 ---
 
 ![plots/inside_DTDS.png](plots/inside_DTDS.png  "plots/inside_DTDS.png")
@@ -104,6 +112,10 @@ This is a self-generated list of the available plots
 *plots/inside_timing.png*
 ---
 
+![plots/inside_timing_full.png](plots/inside_timing_full.png  "plots/inside_timing_full.png")
+*plots/inside_timing_full.png*
+---
+
 ![plots/outin_DTDS.png](plots/outin_DTDS.png  "plots/outin_DTDS.png")
 *plots/outin_DTDS.png*
 ---
@@ -158,5 +170,9 @@ This is a self-generated list of the available plots
 
 ![plots/outin_timing.png](plots/outin_timing.png  "plots/outin_timing.png")
 *plots/outin_timing.png*
+---
+
+![plots/outin_timing_full.png](plots/outin_timing_full.png  "plots/outin_timing_full.png")
+*plots/outin_timing_full.png*
 ---
 

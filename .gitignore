@@ -1,0 +1,8 @@
+*.pkl
+*.pdpkl
+*.pyc
+*.key
+.ipynb_checkpoints/*
+.cache/*
+citymapper/*
+.nogit

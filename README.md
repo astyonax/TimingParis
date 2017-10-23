@@ -241,7 +241,7 @@ I showed that
 
 6. The Seine is a barrier for bikes, but not for cars.
 
-7. In comparison to mobility within the city,  the suburbs strongly disadvantage bicycling. Is there an official figure of number of trips by means of transport? 
+7. In comparison to mobility within the city,  the suburbs strongly disadvantage bicycling. Is there an official figure of number of trips by means of transport?
 
 2. Comparing the attractors of the  bicycling network inside Paris, with the Plan Velo 2015-2020 we can see some overlap; but the overlap is not perfect. More seems needed to support bicycling right outside of Paris.
 
@@ -270,7 +270,7 @@ Since I used Google's data and routing engine, I don't have full control of the 
 
 The plot above shows that the average distance of departure points is 100 m and 150 m inside and outside Paris, respectively.
 
-### Transit 
+### Transit
 ![plots/inside_timing.png](plots/inside_timing_full.png  "ETA for trips inside Paris")
 
 *`Data:` Google Maps -- `Period:` February - April 2017 -- `# of trips:` ~21690 -- `Code`: [Time Paris](notebooks/TimeParis.ipynb)*
@@ -330,3 +330,6 @@ Although with the current protocol transit time is, at worst, just 15 min slower
 * [2][ETA -- co2 production by bike](https://www.eta.co.uk/2011/12/13/co2-emissions-from-cycling-revealed/)
 * [OpenData RATP](https://data.ratp.fr/explore/dataset/trafic-annuel-entrant-par-station-du-reseau-ferre-2014/)
 * [Air pollution in Paris](https://www.airparif.asso.fr/#)
+
+# License
+The movies, animation, plots, and texts (said the content) of this project are licensed under the [Creative Commons Attribution Share Alike 4.0](https://creativecommons.org/licenses/by-sa/4.0/) license, and the underlying source code used to gather, collect, analyze, format, render, and display that content is licensed under the [GNU GPLv3](http://www.gnu.org/licenses/gpl-3.0.txt) license.
