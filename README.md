@@ -234,27 +234,26 @@ I showed that
 
 5. As of now, the north-west part of Paris seems more bike-friendly  than the rest of Paris. Is it an artifact or bias in the data? I will compare with different routing engines.
 
-3. From a travel-time perspective, the network for cars is very well developed and connects "efficiently" all parts of the city. The network for bikes shows polarized and bubble-like areas. The first is an area of Paris for which only one direction is convenient by bike. The second an area of Paris from which it is hardly convenient to quit by bike.
+3. From a travel-time perspective, the "effective" network for cars is very well developed and connects efficiently all parts of the city. The network for bikes shows polarized and bubble-like areas. The first is an area of Paris for which only one direction is convenient by bike. The second an area of Paris from which it is hardly convenient to quit by bike.
 
-4. Streets which are most visited by cars separate from those which are by bikes, suggesting the possibility to create two parallel networks: one car oriented, and one bike oriented.
+4. Streets which are most visited by cars separate from those by bikes, suggesting the possibility to create two separated networks: one car oriented, and one bike oriented.
 
 6. The Seine is a barrier for bikes, but not for cars.
 
-7. In comparison to mobility within the city,  the suburbs strongly disadvantage bicycling.
+7. In comparison to mobility within the city,  the suburbs strongly disadvantage bicycling. Is there an official figure of number of trips by means of transport? 
 
-2. Comparing the attractors of the  bicycling network inside Paris, with the Plan Velo 2015-2020 we can see some overlap, although it is clearly not hitting all crucial notes yet.
+2. Comparing the attractors of the  bicycling network inside Paris, with the Plan Velo 2015-2020 we can see some overlap; but the overlap is not perfect. Why?
 
 3. When comparing the Plan Velo with the optimal paths connecting the suburbs with the city center, it happens to see that the problem of crossing the major city doors is not yet fully addressed.
 
-Finally, in follow up works I would like to:
+Finally, building on this works it will be interesting to:
 
-2. solve most TODOs ;)
+2. solve most TODOs, ofc ;)
 
-3. From the previous plots  2 new effective networks arise: that convenient to cars and that to bikes.  I want to:
+3. From the previous plots 2 new effective networks arise: that convenient to cars and that to bikes.  I want to:
 	1. Characterize them as usually done for networks (so centrality/betweeness/etc..)
 	2. Use that info to optimize the network
 
-4. A measure of safety and comfort of the bike lanes may turn out to be very insightful
 
 ## Appendix
 ### How
