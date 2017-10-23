@@ -16,5 +16,5 @@ if __name__=='__main__':
         print >> fout, '**Dated:** *{:%d, %b %Y @ %H:%M}*'.format(datetime.datetime.now())
         print >> fout, '\n'
         for plot in tqdm(plots):
-            os.system('convert {0:s} -trim {0:s}'.format(plot))
+            os.system("convert {0:s} -trim -resize '1200x>' {0:s}".format(plot))
             print >> fout, template.format(AltText=plot,Title=plot,FigureCaption=plot,plot=plot)
