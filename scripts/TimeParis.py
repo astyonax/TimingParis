@@ -1,14 +1,18 @@
+#!/bin/env python2.7
+
+# Author: G. Saggiorato
+# Date: 1.2.2017
+# This scripts takes directions with google maps api
+# given a set of random departures and destinations
+# TODO: finish writing this
+
 import sys
 sys.path.append('../')
 import googlemaps
-# import citymapper
-mykey=open('gmaps.key').read().strip() # not shared on GitHub
-myCMkey = open('citymapper.key').read().strip()
+mykey=open('../gmaps.key').read().strip()
 #https://developers.google.com/maps/documentation/directions/
 # https://github.com/googlemaps/google-maps-services-python
 import lib
-reload(lib)
-# reload(citymapper)
 import json
 import numpy as np
 import pandas as pd
@@ -21,15 +25,9 @@ from string import atof
 import time
 from concurrent import futures
 from functools import partial
-
 import os
-# In[10]:
-
 from tqdm import tnrange, tqdm_notebook,tqdm
 import traceback
-
-# In[2]:
-
 import functools
 
 class directions(object):
@@ -37,8 +35,6 @@ class directions(object):
     """
         This class exposes a call method that calls googlemaps.directions
         Additionally, it counts the number of times it's called
-
-        TODO: memoize with dict & singleton
     """
     def __init__(self,key,load_cache=False):
         self.gmaps = googlemaps.Client(key=key)
@@ -47,53 +43,63 @@ class directions(object):
         self.miss  = 0
         self.hit   = 0
         self.locked= False
+        # Maximum number of calls to Google Maps API
+        # for a free account
         self.__limit = 2500
+
         if load_cache:
             try:
                 self._load()
             except:
                 pass
+
     def __call__(self,*args,**kwargs):
         key = str(args)+str(kwargs)
 
+        # poor-man memoizing
         if key not in self.memo :
             if self.calls>(self.__limit-2):
-                # the free api has a hard limit to 'limit' query/day
+                # the free api has a hard limit of 2500 queries/day
                 print 'you reached the maximum nr of calls for today'
+                # returns a good kind of errors
+                # because I expect to be calling this in a loop-like
                 raise StopIteration
+
             try:
                 self.memo[key]=self.gmaps.directions(*args,**kwargs)
             except googlemaps.exceptions.Timeout:
                 raise StopIteration
+
             self.calls +=1
             self.miss   = self.calls
+
         else:
             self.hit   += 1
         return self.memo[key]
 
     def _save(self):
-        with open('data/.directions_cache.pkl','wb') as fout:
+        with open('../data/.directions_cache.pkl','wb') as fout:
             cPickle.dump(self.memo,fout)
 
     def _load(self):
 
-        with open('data/.directions_cache.pkl','rb') as fout:
+        with open('../data/.directions_cache.pkl','rb') as fout:
             self.memo = cPickle.load(fout)
 
+
+# Do not load the cache
 GMapDirections = directions(mykey,load_cache=False)
-# CMtime         =citymapper.citymapper(myCMkey)
-len(GMapDirections.memo.keys())
-
-
-# In[3]:
-
-
 
 def haversine(la1,lo1,la2,lo2):
     """
         haversine function (https://en.wikipedia.org/wiki/Haversine_formula)
         for the distance between two points on a sphere of radius R
         earth radius approximated to 6371 Km, accuracy of 0.5% (wikipedia)
+
+        IN: la1, lo1 : latitude and longitude of 1st point  -> float
+            la2, lo2 : same for 2nd point                   -> float
+
+        OUT: distance in km -> float
     """
     EARTH_RADIUS = 6371 #Km
     C = np.cos
@@ -102,32 +108,39 @@ def haversine(la1,lo1,la2,lo2):
     dlat = la2-la1
     dlon = lo2-lo1
     h2   = (S(dlat/2.)**2.+C(la1)*C(la2)*S(dlon/2.)**2.)**.5
+    # returns in km
     return 2.*EARTH_RADIUS*np.arcsin(h2)
 
-
-# In[4]:
-
-
-fdin = 'sample_points/inside.pkl'
+# Random points are precomputed (in the SampleParis.ipynb)
+fdin = '../sample_points/inside.pkl'
 with open(fdin,'rb') as fin:
     points_inside = pkl.load(fin)
 
-fdout = 'sample_points//outside.pkl'
+fdout = '../sample_points//outside.pkl'
 with open(fdout,'rb') as fout:
     points_outside = pkl.load(fout)
 
 
-# In[6]:
-
-print len(points_inside)
-print len(points_outside)
-# points_inside == points_outside
-
-
-# In[7]:
-
-
 def get_travel_times(p1,p2,departure=None,modes=None,filter_distance=False):
+    """
+        Compute the travel time between points `p1=[latitude, longitude]` and `p2`
+        departing at time `departure` with `modes = [list of google maps api compatible modes]`.
+
+        Modes can contain: ['transit','bicycling','driving','walking']
+
+        Returns a list of dictionaries. Each dictionary corresponds to the full
+        path or legs (that is subpaths.)
+
+        For full paths the dict is:
+        `{'mode':mode,'distance':distance,'duration':duration,'p1':p1,'p2':p2,
+                  'haversine_distance':havsine_d,'walk_distance':None,'kind':'full',
+                  'departure':departure,'polyline':polyline}`
+
+        For legs the dict is:
+        `{'mode':_mode,'distance':_distance,'duration':_duration,'p1':_p1,'p2':_p2,
+                     'haversine_distance':_havsine_d,'walk_distance':None,'kind':_kind,
+                     'departure':departure,'polyline':None}`
+    """
     # compute the 'big-circle' distance
     la1,lo1 = p1
     la2,lo2 = p2
@@ -135,8 +148,6 @@ def get_travel_times(p1,p2,departure=None,modes=None,filter_distance=False):
 
     if not modes:
          modes = ['transit','bicycling','driving']#,'walking']
-#     if modes[0]!='transit':
-#         raise NotImplementedError('Habemus a problem with Google server response if 1st request is not for transit')
 
     results = []
     for idx,mode in enumerate(modes):
@@ -146,9 +157,6 @@ def get_travel_times(p1,p2,departure=None,modes=None,filter_distance=False):
         else:
             direction = GMapDirections(p1,p2,region='fr',mode=mode)
 
-#               Save these results in separate list and make key to avoid duplicates
-#         print ('legs: {0:d}'.format(len(direction[0]['legs'])))
-#         print ('directions: {0:d}'.format(len(direction)))
         polyline = direction[0][u'overview_polyline'][u'points']
         legs = direction[0]['legs'][0]
         steps = legs['steps']
@@ -161,32 +169,23 @@ def get_travel_times(p1,p2,departure=None,modes=None,filter_distance=False):
         except KeyError:
             duration = atof(legs['duration']['value']) # distance in second
 
-#         # assign the shortest distance between two points
-#         # to be the walking distance
-#         if mode == 'walking':
-#             shortest_path_distance = distance
 
         report = []
-
-        # be sure these diretion require the requested travel mode
-        steps_travel_mode = [step['travel_mode'].lower().strip() for step in steps]
         record = {'mode':mode,'distance':distance,'duration':duration,'p1':p1,'p2':p2,
                   'haversine_distance':havsine_d,'walk_distance':None,'kind':'full',
                   'departure':departure,'polyline':polyline}
+
+        # be sure these diretion require the requested travel mode
+        # 1. list all travel modes in steps 2. append record if travel mode appears in steps
+        steps_travel_mode = [step['travel_mode'].lower().strip() for step in steps]
         if mode in steps_travel_mode:
             report += [record,]
         else:
+            # TODO: why this?
             if mode == 'transit':
                 break
 
-        # retrieve transit with citymapper
-#         if mode == 'transit':
-#             cmq = CMtime.transit(p1,p2)
-#             cm_time = cmq['travel_time_minutes']*60
-#             record  = {'mode':mode,'distance':distance,'duration':cm_time,'p1':p1,'p2':p2,
-#                       'haversine_distance':havsine_d,'walk_distance':shortest_path_distance,'kind':'CM','departure':departure}
-#             report += [record,]
-
+        # now parse each steps and fill the dictionary
         for step in steps:
             try:
                 _mode      = step[u'travel_mode'].lower().strip()
@@ -207,61 +206,68 @@ def get_travel_times(p1,p2,departure=None,modes=None,filter_distance=False):
                              'departure':departure,'polyline':None},]
             except:
                 pass
-#         if mode == 'transit':
-#             print report
+
         if report:
             results.extend( report )
 
     return results
 
-
-# In[8]:
-
-p1,p2 = points_inside[6],points_inside[7]
+# compute datetime object of next wednesday at 8am
 depart = lib.nextdayat(lib.days.wednesday,8,)
-print depart
-# record = GMapDirections(p1,p2,mode='driving')
-# ['transit','bicycling']
-record = get_travel_times(p1,p2,modes=['driving',],filter_distance=False,departure = depart)
-print GMapDirections.calls
-# GMapDirections._save()
-# for j in record:
-#     print j
-# record
-
-
-# In[ ]:
-
-
-
-
-# In[9]:
-
-tqdm_notebook = tqdm
+# example call
+# record = get_travel_times(p1,p2,modes=['driving',],filter_distance=False,departure = depart)
 
 
 def run_many_extend_no_fail(f,x,max_workers=10,tqdm=False,quiet=False,total=None):
+    """
+
+        Execute function f on x  as map(f,x), asynchronously with futures.ThreadPoolExecutor.
+        As the name says, this function runs f(x) for each x, does not stops even on
+        failure for some x.
+
+        f is expected to return a list to extend the results list
+
+        Note: If not total, items numbers is computed as len(x)
+        If max_workers == 1, truly serial execution is done (and job scheduled)
+        The flag tqdm determines wetether using tqdm to show progress. Works only in multi-threading
+
+
+
+    """
     out = []
     jobs = []
 
-
+    # compute the number of items
     if not total:
         total = len(x)
+
+    # optimize number of workers to the minimum necessary/requested
     max_workers = min(max_workers,total)
+
     if max_workers>1:
+        # we have chose the parallel branch
         with futures.ThreadPoolExecutor(max_workers=max_workers) as executor:
+            # a good description is in the book
+            # ??? don't remember the name now :/ but it's pink and thick
             print 'appending jobs'
             for ix in x:
                 job = executor.submit(f,*ix)
                 jobs.append(job)
 
+            # an iterator serving completed jobs
             asc_jobs = futures.as_completed(jobs)
+
+            #just wrapping with a progress bar
             if tqdm:
                 asc_jobs = tqdm_notebook(asc_jobs,total=total)
+
             print 'executing jobs'
+            # actually it already started, so we iterate on the completed jobs
             for job in asc_jobs:
                 try:
                     records = job.result()
+                    # StopIteration is (in this context) used to indicate that
+                    # we can't call anymore GMaps API
                 except StopIteration as msg:
                     print msg
                     # cancel all other jobs, then break
