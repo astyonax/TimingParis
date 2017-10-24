@@ -103,7 +103,7 @@ Here we explore the network properties of the ways that are more convenient to c
 Histograms of passages. I tessellated the city in ~50mx50m bins counting how often a trip goes through each bin. Hence, the brighter a point, the more often it is visited.
 The left (right) panel shows where it is more convenient to go by car (bike). Without much surprise, the trajectories are on streets. So the two histograms highlight the streets (or parts of streets) which act as hubs for bikes and cars.
 
-<! --Since each path is also the optimal path between two points, this may be linked to a measure of betweeness of each node of the network, where a node is a pixel (see [Network properties](network.md)). -->
+<!-- Since each path is also the optimal path between two points, this may be linked to a measure of betweeness of each node of the network, where a node is a pixel (see [Network properties](network.md)). -->
 
 From the left panel (1) there is no evident area of Paris in which cars are systematically  less convenient, and (2) the density of passages is very similar to the [real one](https://github.com/astyonax/heartbeat-traffic).
 This evidence may support the idea that a uniform distribution of departures and destinations is reasonable to represent the real distribution of trips (**TODO**: quantify this).
