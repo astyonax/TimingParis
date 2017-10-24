@@ -1,8 +1,14 @@
-*.pkl
-*.pdpkl
-*.pyc
+data/*.pkl
+data/*.pdpkl
+data/*npy
+scripts/*.pyc
+lib/*.pyc
 *.key
 .ipynb_checkpoints/*
+notebooks/.ipynb_checkpoints/*
 .cache/*
 citymapper/*
 .nogit
+literature/
+old/
+positions/

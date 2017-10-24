@@ -38,13 +38,10 @@ The need for safety and care is already constantly highlighted, for instance, on
 *`Data:` Google Maps -- `Period:` February - April 2017 -- `# of trips:` ~21690 -- `Code`: [Time Paris](notebooks/TimeParis.ipynb)*
 
 The plot shows the ETA (estimated time of arrival) for trips between random points within Paris by 3 different means of transport (Comparison with transit [here](#transit)).
-Points correspond to the raw data. Solid line is the mean trend, shaded areas correspond to 1 std from average. Solid thin black lines correspond to characteristic velocities.
-The x-axis has two equivalent scales: geodetic distance in km, computed with the [haversine rule](https://en.wikipedia.org/wiki/Haversine_formula), and the corresponding walking time at 3.5 km/h.
-The mark at 5km is about the radius of the periferique from Notre Dame.
+Shaded points correspond to raw data. Solid line is the mean trend, shaded areas correspond to 1 standard deviation from average. Solid thin black lines correspond to characteristic velocities.
 
-The ETA for transit is a total time which sums together approaching, waiting, and traveling times.
-**Note** that comparison of driving time versus transit time is **unfair** because transit time counts also the approaching and waiting times, for cars and bikes only the travel time is considered.
-Although with the current protocol transit time is, at worst, just 15 min slower than driving time, which seems about the dead time one would expect because of parking and approaching, I do not have a quantitative estimate. Hence, *I continue the analysis ignoring the transit time*.
+The x-axis has two equivalent scales: **1.** geodetic distance in km, computed with the [haversine rule](https://en.wikipedia.org/wiki/Haversine_formula), and **2.** walking time at 3.5 km/h.
+The mark at 5km is about the radius of the periferique from Notre Dame (shown in the [methods section](#how)).
 
 One can read two tales from the plot about: one for distances shorter than 5km, and one for distances  bigger than 5km.
 
