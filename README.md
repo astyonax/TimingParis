@@ -123,7 +123,9 @@ At first sight, there is a sort of ring of boulevards inside Paris which may be 
 Thus, one may designate car-oriented boulevards and bike-oriented boulevard, enhancing the traffic isolation. However, before further thoughts, I need to compare these results with those obtainable with the alternative routing engines (e.g. Graphhopper, ORSM, bbbike, BRouter.de,etc..) to remove google maps' specific bias. (not hard, **TODO** soon). Note also that geometric factors (e.g. dilution as we move from center to the buondary of Paris may need to be corrected)
 
 #### Bike Plan of Paris
-![](https://planvelo.paris/assets/images/pages/engagements_schema.jpg)
+
+![Plan Velo Paris](bike_plan/engagements_schema.jpg)
+*From https://planvelo.paris/assets/images/pages/engagements_schema.jpg*
 
 Comparing the *Plan Velo* to the previous histogram, we see that there are some differences between the fastest routes for bikes and the position of new and present bicycle ways. It is difficult to draw generic explanations for this phenomenon. But, as said, before drawing conclusions, the previous histogram needs to be compared to results of alternative routing softwares.
 
