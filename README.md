@@ -1,10 +1,10 @@
 # Biking or driving in Paris?
 ## A comparative study of means of transport
 
-Have you ever wondered when is it convenient to use the bike in Paris? or when is it to use the car? Or just if there are areas which are bike-fobic, or vice-versa car-fobic? Did you ever though that the _periferique_ is like a filter blocking bikes on its sides?
+Have you ever wondered when  it is convenient to use the bike in Paris? or when it is to use the car? Or just if there are areas which are bike-fobic, or vice-versa car-fobic? Did you ever though that the _periferique_ is like a filter blocking bikes on its sides?
 
-In this report I attempt to give an answer to those questions.
-If you live in Paris, you will probably find the results not so surprising and already proven by experience. But this is an important point too: shifting from an `anecdotal` knowledge about motility to a`factual` one.
+In this report I attempt to give an answer to these questions.
+If you live in Paris, you will probably find the results not so surprising and already proven by experience. But this is an important point too: shifting from an `anecdotal` knowledge about mobility to a`factual` one.
 
 ----------
 
