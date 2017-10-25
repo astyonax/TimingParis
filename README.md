@@ -37,7 +37,7 @@ The need for safety and care is already constantly highlighted, for instance, on
 
 *`Data:` Google Maps -- `Period:` February - April 2017 -- `# of trips:` ~21690 -- `Code`: [Time Paris](notebooks/TimeParis.ipynb)*
 
-The plot shows the ETA (estimated time of arrival) for trips between random points within Paris by 3 different means of transport (Comparison with transit [here](#transit)).
+The plot shows the ETA (estimated time of arrival) for trips between random points within Paris by 3 different means of transport (comparison with transit [here](#transit), comparison including parking time [here](#comparing_trips)).
 Shaded points correspond to raw data. Solid line is the mean trend, shaded areas correspond to 1 standard deviation from average. Solid thin black lines correspond to characteristic velocities.
 
 The x-axis has two equivalent scales: **1.** geodetic distance in km, computed with the [haversine rule](https://en.wikipedia.org/wiki/Haversine_formula), and **2.** walking time at 3.5 km/h.
@@ -68,9 +68,13 @@ The histogram on the left panel shows that for, the same departures and destinat
 Is this in contradiction with the previous observation that bikes and cars may share the same network constraints? Since the histogram begin to diverge at about 5km, it can be that the difference is due to the periferique: a path in the periferique is faster but longer than in regular streets.
 
 On the right panel I show the histogram of geodetic distances for convenient trips by means of transport.
-Turns out that **~35%** of the trips are convenient by bike. With a strong bias for  trips up to about 7km.
-Remember that I am already ignoring safety, comfort, and infrastructure.
+Turns out that **~20%** of the trips are convenient by bike, and about 30% for trips shorter than 5 km.
 
+![](plots/fraction_vs_distance_inside.png)|![](plots/on_parking_time_inside.png)
+:--------------------:|:---------------------:
+*Plot of the fraction of convenient bike trips versus geodetic distance*|*Plot of fraction of convenient bike trips versus hypothetical parking time*
+
+The plot on the left shows that, currently, trips shorter than 2 km have more than 50% probability of being convenient by bike. The plot on the right shows that if parking takes just 5 min, then bike trips are more convenient about ~60% of the times, instead of ~20%.
 
 ### CO<sub>2</sub> production
 ![plots/inside_hist_kgco2_mode.png](plots/inside_hist_kgco2_mode.png  "plots/inside_hist_kgco2_mode.png")
@@ -185,10 +189,13 @@ Nonetheless, do not fool yourself: not all suburbs are safe to bike!
 
 *These histograms show the distribution of trips versus  the traveled distance. In light shades the histogram for all trips. In dark shades the same trips filtered by more convenient by car (red) or by bike (blue). The label `car < bike` stands for cars faster than bikes, viceversa `car > bike` means the opposite.  [[Code](notebooks/TimeParis-plots-kgCO2.ipynb)]*
 
-I find that only **10%** (14% if we consider only trips below 10 km) of the entering trips are more convenient by bike than by car. This is  a big reduction from the 35% we saw for trips inside Paris. I try to justify this with two rationale: 1. trips are longer, 2. the network is even more car oriented. To distinguish the two I will (**TODO**) resample the dataset to have the same distances distribution as inside Paris prior to comparing the percentage of convenient trips.
+I find that only **~5%**  of the entering trips are more convenient by bike than by car (20% if trip is shorter than 5 km). This is  a big reduction from the 20% we saw for trips inside Paris. I try to justify this with two rationale: 1. trips are longer, 2. the network is even more car oriented. To distinguish the two I will (**TODO**) resample the dataset to have the same distances distribution as inside Paris prior to comparing the percentage of convenient trips.
 
 Thus, you have to be lucky to find it convenient to get into Paris from outside. (Yet, you would spare so much money w/o a car, stress in the traffic jam, money&time for parking, + less pollution that I would give it a try).
 
+![](plots/fraction_vs_distance_outin.png)|![](plots/on_parking_time_outin.png)
+:--------------------:|:---------------------:
+*Plot of the fraction of convenient bike trips versus geodetic distance*|*Plot of fraction of convenient bike trips versus hypothetical parking time*
 
 ### Structure
 ![plots/outin_car_clusters.png](plots/outin_car_clusters.png  "plots/outin_car_clusters.png") | ![plots/outin_bike_clusters.png](plots/outin_bike_clusters.png  "plots/outin_bike_clusters.png")

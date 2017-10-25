@@ -1,7 +1,7 @@
 # Plots Summary
 
 This is a self-generated list of the available plots
-**Dated:** *23, Oct 2017 @ 23:39*
+**Dated:** *25, Oct 2017 @ 15:59*
 
 
 ![plots/average_distance.png](plots/average_distance.png  "plots/average_distance.png")
@@ -54,6 +54,18 @@ This is a self-generated list of the available plots
 
 ![plots/departure_points.png](plots/departure_points.png  "plots/departure_points.png")
 *plots/departure_points.png*
+---
+
+![plots/fraction_vs_distance_bigpar.png](plots/fraction_vs_distance_bigpar.png  "plots/fraction_vs_distance_bigpar.png")
+*plots/fraction_vs_distance_bigpar.png*
+---
+
+![plots/fraction_vs_distance_inside.png](plots/fraction_vs_distance_inside.png  "plots/fraction_vs_distance_inside.png")
+*plots/fraction_vs_distance_inside.png*
+---
+
+![plots/fraction_vs_distance_outin.png](plots/fraction_vs_distance_outin.png  "plots/fraction_vs_distance_outin.png")
+*plots/fraction_vs_distance_outin.png*
 ---
 
 ![plots/inside_DTDS.png](plots/inside_DTDS.png  "plots/inside_DTDS.png")
@@ -114,6 +126,18 @@ This is a self-generated list of the available plots
 
 ![plots/inside_timing_full.png](plots/inside_timing_full.png  "plots/inside_timing_full.png")
 *plots/inside_timing_full.png*
+---
+
+![plots/on_parking_time_bigpar.png](plots/on_parking_time_bigpar.png  "plots/on_parking_time_bigpar.png")
+*plots/on_parking_time_bigpar.png*
+---
+
+![plots/on_parking_time_inside.png](plots/on_parking_time_inside.png  "plots/on_parking_time_inside.png")
+*plots/on_parking_time_inside.png*
+---
+
+![plots/on_parking_time_outin.png](plots/on_parking_time_outin.png  "plots/on_parking_time_outin.png")
+*plots/on_parking_time_outin.png*
 ---
 
 ![plots/outin_DTDS.png](plots/outin_DTDS.png  "plots/outin_DTDS.png")
