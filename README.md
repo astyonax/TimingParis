@@ -47,12 +47,12 @@ One can read two tales from the plot about: one for distances shorter than 5km, 
 
 1. Case of trips shorter than 5km:
 
-	1. Transit is about 10min slower than both cars and bikes, on average.
+	1. Transit is about 10 min slower than both cars and bikes, on average.
 
-	2. Cars and bike have the same speed (12km/h). Not really a big news for cars. But bikes are clearly slower than needed. My guess is that it's a *network limitation* as both means are constrained by the same traffic lights. Thus the effective velocity of cars is, on average, even less than half of the proposed limit of [30km/h](https://leparisien.fr/paris-75005/tout-paris-a-30-km-h-c-est-pour-demain-14-09-2017-7261308.php).
+	2. Cars and bike have the same speed (12 km/h), meaning that the effective velocity of cars is, on average, even less than half of the proposed limit of [30km/h](https://leparisien.fr/paris-75005/tout-paris-a-30-km-h-c-est-pour-demain-14-09-2017-7261308.php). But bikes are clearly slower than needed. My guess is that it's a *network limitation* as both means are constrained by the same traffic lights.
 	Note here that I expect bikes to respect the driving code, and to stop when needed.
 
-2. Case of trips longer than 5km:
+2. Case of trips longer than 5 km:
 	1. Here cars hit the periferique and can go faster than bikes. But  my statistics goes down in quality, too.
 	2. Since the average bike speed is constant with distance I think that it's really just constrained by the network, which does not have fast long-distance bike ways.
 
