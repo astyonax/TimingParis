@@ -37,7 +37,7 @@ The need for safety and care is already constantly highlighted, for instance, on
 
 *`Data:` Google Maps -- `Period:` February - April 2017 -- `# of trips:` ~21690 -- `Code`: [Time Paris](notebooks/TimeParis.ipynb)*
 
-The plot shows the ETA (estimated time of arrival) for trips between random points within Paris by 3 different means of transport (comparison with transit [here](#transit), comparison including parking time [here](#comparingtrips)).
+The plot shows the ETA (estimated time of arrival) for trips between random points within Paris by 3 different means of transport (comparison with transit [here](#transit), comparison including parking time [here](#comparing-trips)).
 Shaded points correspond to raw data. Solid line is the mean trend, shaded areas correspond to 1 standard deviation from average. Solid thin black lines correspond to characteristic velocities.
 
 The x-axis has two equivalent scales: **1.** geodetic distance in km, computed with the [haversine rule](https://en.wikipedia.org/wiki/Haversine_formula), and **2.** walking time at 3.5 km/h.
