@@ -6,6 +6,8 @@ Have you ever wondered when  it is convenient to use the bike in Paris? or when 
 In this report I attempt to give an answer to these questions.
 If you live in Paris, you will probably find the results not so surprising and already proven by experience. But this is an important point too: shifting from an `anecdotal` knowledge about mobility to a`factual` one.
 
+**Feedback is very appreciated**, especially via pull-requests or issues ;)
+
 ----------
 
 This report is divided in 2 parts:
@@ -13,6 +15,7 @@ This report is divided in 2 parts:
 2. In part 2 I compare the travel time from A to B, where A is _outside_ Paris and B is _inside_ Paris. Again, A and B are randomly chosen points.
 
 For each case the same analysis is done, and all plots are listed [here](plots_summary.md).
+
 
 ### A bit of motivation
 
