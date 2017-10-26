@@ -83,18 +83,18 @@ The plot on the left shows that, currently, trips shorter than 2 km have more th
 
 Useless to say, every means of transport has an impact on CO~2~ production. Bikes and public transport of course make no exception (Refs. [1, 2]). For bike the estimate considers production, maintenance and fuel. The figure above shows the total impact on carbon production if bikes were always chosen when more convenient. For the uniform distribution of trips I employed, this would lead to **~20%** less kg CO~2~/passenger/trip.
 
-So, in spite of a 35% of trips which are more convenient by bike, we get a mere 20% reduction of CO~2~ production.
+So, in spite of a 20% of trips which are more convenient by bike, we get a mere 10% reduction of CO~2~ production.
 One reason may be found on the distribution of trips favourable by bike.
 As noted already in the previous section **"Comparing Trips"**, bikes win over cars on short trajectories.
 Hence they take away a smaller part of the total CO~2~ production.
 
 > **Speculative thoughts warning**
 >
-> Nonetheless, things do not need to be so dark. I ignored a  feedback mechanism: removing 35% of cars from the network may lead to a less congested traffic which, in turn, would reduce it's own footprint, and facilitate car trips of those who really need it (taxis, deliveries, ..)
+> Nonetheless, things do not need to be so dark. I ignored a  feedback mechanism: removing 20% of cars from the network may lead to a less congested traffic which, in turn, would reduce it's own footprint, and facilitate car trips of those who really need it (taxis, deliveries, ..)
 
 ## Structure/Network
 
-In the second figure we have seen that about 35% of randomly chosen trips in Paris are worth to be done by bike.
+In the second figure we have seen that about 20% of randomly chosen trips in Paris are worth to be done by bike.
 Here we explore the network properties of the ways that are more convenient to cars or to bikes.
 
 ![plots/inside_cfg.png](plots/inside_cfg.png  "plots/inside_cfg.png")
@@ -235,7 +235,7 @@ Please, do not let it happen.
 Within the limitations of this analysis (which are mostly marked with a **TODO**),
 I showed that
 
-2. About ~35% of trips inside Paris are convenient to be done by bike.
+2. About ~20% of trips inside Paris are convenient to be done by bike.
 
 1. Both bikes and cars run at the average speed of ~12 km/h.
 
