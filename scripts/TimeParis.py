@@ -12,14 +12,13 @@ import googlemaps
 mykey=open('../gmaps.key').read().strip()
 #https://developers.google.com/maps/documentation/directions/
 # https://github.com/googlemaps/google-maps-services-python
-import lib
+import lib # my libraries
 import json
 import numpy as np
 import pandas as pd
 from string import atof
 import pandas as pd
 import cPickle as pkl
-import cPickle
 import numpy as np
 from string import atof
 import time
@@ -35,6 +34,7 @@ class directions(object):
     """
         This class exposes a call method that calls googlemaps.directions
         Additionally, it counts the number of times it's called
+        and caches the requests, to avoid useless calls to the API
     """
     def __init__(self,key,load_cache=False):
         self.gmaps = googlemaps.Client(key=key)
@@ -57,38 +57,36 @@ class directions(object):
         key = str(args)+str(kwargs)
 
         # poor-man memoizing
-        if key not in self.memo :
-            if self.calls>(self.__limit-2):
+        if key not in self.memo:
+            if self.calls>(self.__limit):
                 # the free api has a hard limit of 2500 queries/day
                 print 'you reached the maximum nr of calls for today'
                 # returns a good kind of errors
-                # because I expect to be calling this in a loop-like
+                # because I expect to be calling this in a loop-like context
                 raise StopIteration
 
             try:
-                self.memo[key]=self.gmaps.directions(*args,**kwargs)
+                self.memo[key] = self.gmaps.directions(*args,**kwargs)
             except googlemaps.exceptions.Timeout:
                 raise StopIteration
 
             self.calls +=1
-            self.miss   = self.calls
-
+            self.miss = self.calls
         else:
-            self.hit   += 1
+            self.hit += 1
         return self.memo[key]
 
     def _save(self):
         with open('../data/.directions_cache.pkl','wb') as fout:
-            cPickle.dump(self.memo,fout)
+            pkl.dump(self.memo,fout)
 
     def _load(self):
-
         with open('../data/.directions_cache.pkl','rb') as fout:
-            self.memo = cPickle.load(fout)
+            self.memo = pkl.load(fout)
 
 
 # Do not load the cache
-GMapDirections = directions(mykey,load_cache=False)
+
 
 def haversine(la1,lo1,la2,lo2):
     """
@@ -120,7 +118,7 @@ fdout = '../sample_points//outside.pkl'
 with open(fdout,'rb') as fout:
     points_outside = pkl.load(fout)
 
-
+GMapDirections = directions(mykey,load_cache=False)
 def get_travel_times(p1,p2,departure=None,modes=None,filter_distance=False):
     """
         Compute the travel time between points `p1=[latitude, longitude]` and `p2`
@@ -144,10 +142,10 @@ def get_travel_times(p1,p2,departure=None,modes=None,filter_distance=False):
     # compute the 'big-circle' distance
     la1,lo1 = p1
     la2,lo2 = p2
-    havsine_d= haversine(la1,lo1,la2,lo2)*1000#distance in meters (but low prec)
+    havsine_d= haversine(la1,lo1,la2,lo2)*1000 #distance in meters (but low prec)
 
     if not modes:
-         modes = ['transit','bicycling','driving']#,'walking']
+         modes = ['transit','bicycling','driving']
 
     results = []
     for idx,mode in enumerate(modes):
@@ -164,10 +162,10 @@ def get_travel_times(p1,p2,departure=None,modes=None,filter_distance=False):
         # get infos from google directions results
         distance = atof(legs['distance']['value']) #distance in meters
         try:
-            duration = atof(legs['duration_in_traffic']['value']) # distance in second
+            duration = atof(legs['duration_in_traffic']['value']) # duration in second
             print 'duration_in_traffic','no'
         except KeyError:
-            duration = atof(legs['duration']['value']) # distance in second
+            duration = atof(legs['duration']['value']) # duration in second
 
 
         report = []
@@ -175,8 +173,8 @@ def get_travel_times(p1,p2,departure=None,modes=None,filter_distance=False):
                   'haversine_distance':havsine_d,'walk_distance':None,'kind':'full',
                   'departure':departure,'polyline':polyline}
 
-        # be sure these diretion require the requested travel mode
-        # 1. list all travel modes in steps 2. append record if travel mode appears in steps
+        # make sure these direction require the requested travel mode
+        # 1. list all travel modes in steps 2. append record if travel mode appears in at least one step step
         steps_travel_mode = [step['travel_mode'].lower().strip() for step in steps]
         if mode in steps_travel_mode:
             report += [record,]
@@ -191,9 +189,9 @@ def get_travel_times(p1,p2,departure=None,modes=None,filter_distance=False):
                 _mode      = step[u'travel_mode'].lower().strip()
                 _distance  = step[u'distance'][u'value']
                 try:
-                    _duration = atof(step[u'duration_in_traffic']['value']) # distance in second
+                    _duration = atof(step[u'duration_in_traffic']['value']) # duration in second
                 except KeyError:
-                    _duration = atof(step[u'duration']['value']) # distance in second
+                    _duration = atof(step[u'duration']['value']) # duration in second
                 _kind      = 'step'
                 _la1,_lo1  = step[u'start_location'][u'lat'],step[u'start_location'][u'lng']
                 _p1        = np.asarray([_la1,_lo1])
@@ -213,10 +211,7 @@ def get_travel_times(p1,p2,departure=None,modes=None,filter_distance=False):
     return results
 
 # compute datetime object of next wednesday at 8am
-depart = lib.nextdayat(lib.days.wednesday,8,)
-# example call
-# record = get_travel_times(p1,p2,modes=['driving',],filter_distance=False,departure = depart)
-
+# depart = lib.nextdayat(lib.days.wednesday,8,)
 
 def run_many_extend_no_fail(f,x,max_workers=10,tqdm=False,quiet=False,total=None):
     """
@@ -227,11 +222,9 @@ def run_many_extend_no_fail(f,x,max_workers=10,tqdm=False,quiet=False,total=None
 
         f is expected to return a list to extend the results list
 
-        Note: If not total, items numbers is computed as len(x)
+        Note: If total is not given, lenght of x is computed as len(x)
         If max_workers == 1, truly serial execution is done (and job scheduled)
         The flag tqdm determines wetether using tqdm to show progress. Works only in multi-threading
-
-
 
     """
     out = []
@@ -262,7 +255,7 @@ def run_many_extend_no_fail(f,x,max_workers=10,tqdm=False,quiet=False,total=None
                 asc_jobs = tqdm_notebook(asc_jobs,total=total)
 
             print 'executing jobs'
-            # actually it already started, so we iterate on the completed jobs
+            # actually they already started, so we iterate on the completed jobs
             for job in asc_jobs:
                 try:
                     records = job.result()
@@ -298,24 +291,18 @@ def run_many_extend_no_fail(f,x,max_workers=10,tqdm=False,quiet=False,total=None
     return out
 
 
-# In[11]:
-
-import time
-def crashme(a,b,c):
-    if a>.9:
-        raise IndexError
-    if a==.1:
-        raise StopIteration
-    time.sleep(10)
-    return [[a,b,c],]
-
-
-x=[[1,1,1],[.5,.5,.5],[.2,.2,.2],[.2,.2,.2],[.2,.2,.2],[.1,.1,.1]]*15
+#
+# import time
+# def crashme(a,b,c):
+#     if a>.9:
+#         raise IndexError
+#     if a==.1:
+#         raise StopIteration
+#     time.sleep(10)
+#     return [[a,b,c],]
+#
+# x=[[1,1,1],[.5,.5,.5],[.2,.2,.2],[.2,.2,.2],[.2,.2,.2],[.1,.1,.1]]*15
 # run_many_extend_no_fail(crashme,x,tqdm=True,total=2)
-
-
-# In[12]:
-
 
 class NN_pair_from(object):
     def __init__(self,X,Y=False,howmany=False):
@@ -342,13 +329,16 @@ class NN_pair_from(object):
     def __len__(self):
         return self.howmany
 
-
-# In[13]:
-
-
 from time import strftime,gmtime
-def get_data(X,Y,name,N):
 
+def get_data(X,Y,name,N):
+    """
+
+        get the travel times using the previous machinery
+        saves the records on a daily files to
+        avoid accidental corruption of the entire dataset
+
+    """
     print 'running:', name
     depart = lib.nextdayat(lib.days.monday,8,)
     now = strftime("%Y-%m-%d-%H-%M-%S", gmtime())
@@ -358,10 +348,9 @@ def get_data(X,Y,name,N):
     fnout = 'data/{:s}_{:s}.pdpkl'.format(name,now)
     latest = 'data/{:s}_latest'.format(name)
 
-    # import cPickle
     try:
         with open(latest,'rb') as fin:
-            data_out=cPickle.load(fin)
+            data_out=pkl.load(fin)
     except IOError:
         data_out = []
     print 'records so far:',len(data_out)
@@ -372,30 +361,23 @@ def get_data(X,Y,name,N):
         data_out.extend(run_many_extend_no_fail(func,points,total=len(points),max_workers=2,quiet=True,tqdm=True))
     finally:
         GMapDirections._save()
-
         df = pd.DataFrame(data_out)
-
         df.to_pickle(fnout)
         print u' Done :)'
     return df
 
+#-------------------------------------------------------------------------------
+# DO THE JOB here
 
-# In[ ]:
+# define the sampling point of origin and destination of the trips
+# and so the tests that we wnt to do
 
 bigparis = np.r_[points_inside,points_outside]
 tests=[{'name':'inside','X':points_inside,'Y':points_inside},
        {'name':'outin' ,'X':points_outside,'Y':points_inside},
        {'name':'bigpar','X':bigparis,'Y':bigparis}]
 
-GMapDirections._save()
-GMapDirections = directions(mykey,load_cache=False)
+# do the tests
+# and save the results
 for ix in range(len(tests)):
-    # test = tests[ix]
-    # X = test['X']
-    # Y = test['Y']
-    # name = test['name']
     df = get_data(N=2500/3/len(tests),**tests[ix])
-    # df = get_data(N=2500/3/len(tests),X=X,Y=Y,name=name)
-# print 'total calls:',GMapDirections.calls
-#
-#print df.groupby(('mode','kind')).count()
