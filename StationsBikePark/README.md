@@ -27,4 +27,4 @@ Thus, here follow the steps needed to recreate (and update) the map.
 
 3. Run the jupter-notebook `makemap.ipynb`
 
-4. Open the [webpage](http://htmlpreview.github.com/?https://github.com/astyonax/TimingParis/StationsBikePark/interactive_map/parkmybike.html)
+4. Open the [webpage](http://htmlpreview.github.com/?https://github.com/astyonax/TimingParis/blob/master/StationsBikePark/interactive_map/parkmybike.html)
