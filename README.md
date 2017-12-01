@@ -25,7 +25,7 @@ It turns out that Paris is tiny, seriously, just 10km in diameter! Rome is 30km!
 This project is about showing the time difference between trips by car and by bike with a quantitatively "robust" approach. I compare time because that's readily mapped to efficiency and so to economic gains. Other issues, such as safety, steepness, infrastructure are not considered yet:
 
 * **Steepness** is not important in my opinion: e-bikes, assisted bikes, ..  will come to aid soon.
-* For the **infrastructure** I'm preparing another study (soonish too).
+* For the **infrastructure**: Have a look [here](http://htmlpreview.github.com/?https://github.com/astyonax/TimingParis/StationsBikePark/interactive_map/parkmybike.html) where multi-modal commuters are expected to park their bikes (with OSM data).
 * **Safety**, instead, is indeed a big deal.
 The need for safety and care is already constantly highlighted, for instance, on [Twitter](https://twitter.com/search?q=Paris%20velo&src=typd), and years ago in the [Netherlands](https://bicycledutch.wordpress.com/2011/10/20/how-the-dutch-got-their-cycling-infrastructure/).
 

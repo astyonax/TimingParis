@@ -1,0 +1,52 @@
+<!doctype html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- include leaflet css and javascript -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.1.0/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet@1.1.0/dist/leaflet.js" ></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
+    <!-- the leaflet easymap javascript -->
+    <!-- include this _after_ the leaflet javascript -->
+    <script src="js/leaflet-easymap.js"></script>
+
+    <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400"
+        rel="stylesheet"
+        media="none"
+        onload="if(media!='all')media='all'" />
+    <style>
+        body{
+            padding:1em;
+            font-family: 'Source Sans Pro', sans-serif !important;
+            font-style: normal;
+            font-weight:lighter!important;
+	    background-color: #fdfdfd !important;
+        } 
+      .leasymap {
+        /* Important: the element needs a height! */
+        height: 500px; /* adjust this as you need it */
+        width: 100%; /* adjust this as you need it */
+        /* the following css is optional */
+        border: 0px solid black;
+        margin:5px;
+      }
+      .tofive{color:#cccccc;}
+      .toten{color:#ff0000;}
+      .totwenty{color:#0000ff;}
+      .uptwenty{color:#00ff00;}
+    </style>
+</head>
+<body>
+    <div class='container'>
+    <h1>Park my bike near</h1>
+    <h2>the subway entrance in Paris</h2>
+
+    <div class="leasymap" data-locate="true" data-geojson="within100m.geojson" data-origin="geojson"></div>
+    <p> <strong>Color legend</strong>: <span class="tofive">Less than 5 places or unknown</span>, <span class="toten">less than 10</span>, <span class="totwenty">less than 20</span>, <span class="uptwenty">more than 20</span>
+    </p>
+    <p>Map of the official bike parks within 100m to the nearest metro entrance. Marker code indicates number of declared spaces. Blue lines connect marker and metro station, obtained with OSRM. Data from the OpenStreetMap project. </p>
+    <p> </p>
+    <p>Last updated: July 2017. Code available on Github. <hr>Data license: <a href="http://opendatacommons.org/licenses/odbl/1.0/"> ODBL 1.0</a>.  ALL DATA IS PROVIDED "AS IS" AND I MAKE ANY OTHER WARRANTIES, EXPRESS OR IMPLIED, INCLUDING ANY IMPLIED WARRANTY OF NON-INFRINGEMENT, ACCURACY, MERCHANTABILITY, OR FITNESS FOR A PARTICULAR PURPOSE. <br/>Code license: <a href="https://www.gnu.org/licenses/gpl.txt">GPLv3</a>, Copyright 2017 Guglielmo Saggiorato </p>
+    </div>
+</body>
+</html>
