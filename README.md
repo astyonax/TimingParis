@@ -127,14 +127,33 @@ As comparison to the histogram above, here I show the histogram for all trajecto
 
 The map above shows the backbones of Paris either for driving or bicycling.
 At first sight, there is a sort of ring of boulevards inside Paris which may be used to enhance and simplify the life of bikers.
-Thus, one may designate car-oriented boulevards and bike-oriented boulevard, enhancing the traffic isolation. However, before further thoughts, I need to compare these results with those obtainable with the alternative routing engines (e.g. Graphhopper, ORSM, bbbike, BRouter.de,etc..) to remove google maps' specific bias. (not hard, **TODO** soon). Note also that geometric factors (e.g. dilution as we move from center to the buondary of Paris may need to be corrected)
+Thus, one may designate car-oriented boulevards and bike-oriented boulevard, enhancing the traffic isolation.
+
+#### Bike vs Car isolation?
+
+![](plots/inside_conveniency.png)|![](plots/outin_conveniency.png)
+:--------------------:|:---------------------:
+*In red, the backbones of cars. In blue the backbones for bikes. Surprisingly there is a strong separation among the two networks.*|*Same as on the left, but for trip entering in Paris from the suburbs.*
+
+It is known that the best way to keep bicyclers safe is to physically isolate the bike ways from regular streets. This poses a problem of space in the already crowded city of Paris. At the same time, one would like to optimize the bike networks, e.g. by creating bike highways, thus giving the option to travel via "high-speed" routes for bike, which would so have an important selling point with respect to cars.
+
+How far is Paris from this separation then? In the maps above I visualize "street-hubs". Usually hubs are important nodes, and streets are edges between nodes. But we can reverse this relation, in the dual of the network graph. So street-hubs as a very important streets, which are highly traversed (and important places become edges connecting streets).
+
+The maps above show, then, that the networks in Paris is already self-organizing in the direction of different street-hubs for cars and for bikes: red routes, corresponding to important routes for cars (e.g. Periferique, some quai, around Les Invalides), are clearly separated from those in blue, which are street-hub for bikes.
+The separation occurs as well in trips entering Paris, as shown in the map on the right.
+
+In particular note that bikes hubs (in blue) almost form an inner ring with about 5km of diameter inside Paris, with radial spikes connecting the ring at 10km of diameter, and the roads connecting the northern suburbs.
+Improving the quality, safety, and speed on those highlighted boulevard would be strongly beneficial to the cycling population (imho).
+
+
+>Before further thoughts, I need to compare these results with those obtainable with the alternative routing engines (e.g. Graphhopper, ORSM, bbbike, BRouter.de,etc..) to remove google maps' specific bias. Note also that geometric factors (e.g. dilution as we move from center to the buondary of Paris may need to be corrected)
 
 #### Bike Plan of Paris
 
 ![Plan Velo Paris](bike_plan/engagements_schema.jpg)
 *From https://planvelo.paris/assets/images/pages/engagements_schema.jpg*
 
-Comparing the *Plan Velo* to the previous histogram, we see that there are some differences between the fastest routes for bikes and the position of new and present bicycle ways. It is difficult to draw generic explanations for this phenomenon. But, as said, before drawing conclusions, the previous histogram needs to be compared to results of alternative routing softwares.
+Comparing the *Plan Velo* to the previous maps, we see that there are similarities (of course), as well as differences between the fastest routes for bikes and the position of future and present bicycle ways. It is difficult to draw generic explanations for this phenomenon (and to visualize the differences). Nonetheless further policies concerning the  expansion of the bike network may be willing take under consideration the current state.
 
 ### Clusters
 

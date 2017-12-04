@@ -1,7 +1,7 @@
 # Plots Summary
 
 This is a self-generated list of the available plots
-**Dated:** *26, Oct 2017 @ 14:16*
+**Dated:** *04, Dec 2017 @ 09:54*
 
 
 ![plots/average_distance.png](plots/average_distance.png  "plots/average_distance.png")
@@ -108,6 +108,10 @@ This is a self-generated list of the available plots
 *plots/inside_clusters.png*
 ---
 
+![plots/inside_conveniency.png](plots/inside_conveniency.png  "plots/inside_conveniency.png")
+*plots/inside_conveniency.png*
+---
+
 ![plots/inside_hist_dist_mode.png](plots/inside_hist_dist_mode.png  "plots/inside_hist_dist_mode.png")
 *plots/inside_hist_dist_mode.png*
 ---
@@ -178,6 +182,10 @@ This is a self-generated list of the available plots
 
 ![plots/outin_clusters.png](plots/outin_clusters.png  "plots/outin_clusters.png")
 *plots/outin_clusters.png*
+---
+
+![plots/outin_conveniency.png](plots/outin_conveniency.png  "plots/outin_conveniency.png")
+*plots/outin_conveniency.png*
 ---
 
 ![plots/outin_hist_dist_mode.png](plots/outin_hist_dist_mode.png  "plots/outin_hist_dist_mode.png")
