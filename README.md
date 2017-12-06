@@ -1,12 +1,15 @@
 # Biking or driving in Paris?
-## A comparative study of means of transport
+> A comparative study of means of transport
 
-Have you ever wondered when  it is convenient to use the bike in Paris? or when it is to use the car? Or just if there are areas which are bike-fobic, or vice-versa car-fobic? Did you ever though that the _periferique_ is like a filter blocking bikes on its sides?
+![](plots/inside_conveniency.png)
+
+
+When is it convenient to use the bike in Paris? or when is it to use the car? Or just if there are areas which are bike-fobic, or vice-versa car-fobic? Did you ever though that the _periferique_ is like a filter blocking bikes on its sides?
 
 In this report I attempt to give an answer to these questions.
 If you live in Paris, you will probably find the results not so surprising and already proven by experience. But this is an important point too: shifting from an `anecdotal` knowledge about mobility to a`factual` one.
 
-**Feedback is very appreciated**, especially via pull-requests or issues ;)
+**Feedback is very appreciated**, especially via [pull-requests](https://github.com/astyonax/TimingParis/pulls) or [issues](https://github.com/astyonax/TimingParis/issues).
 
 ----------
 
@@ -16,8 +19,38 @@ This report is divided in 2 parts:
 
 For each case the same analysis is done, and all plots are listed [here](plots_summary.md).
 
+----------
+<!-- TOC depthFrom:1 depthTo:6 withLinks:1 updateOnSave:1 orderedList:0 -->
 
-### A bit of motivation
+- [Biking or driving in Paris?](#biking-or-driving-in-paris)
+	- [Motivation](#motivation)
+	- [Part 1 - Inside Paris](#part-1-inside-paris)
+		- [Comparing trips](#comparing-trips)
+		- [CO<sub>2</sub> production](#cosub2sub-production)
+		- [Structure/Network](#structurenetwork)
+		- [Backbones](#backbones)
+			- [Bikes vs Cars isolation?](#bikes-vs-cars-isolation)
+			- [Bike Plan of Paris](#bike-plan-of-paris)
+		- [Clusters](#clusters)
+	- [Part 2 - How to enter in the city](#part-2-how-to-enter-in-the-city)
+		- [Counting trips](#counting-trips)
+		- [Structure](#structure)
+	- [Conclusion](#conclusion)
+	- [Appendix](#appendix)
+		- [How](#how)
+		- [How many points](#how-many-points)
+		- [Transit](#transit)
+	- [Literature](#literature)
+		- [Cited academic articles](#cited-academic-articles)
+		- [Bibliography](#bibliography)
+		- [Online](#online)
+		- [Data Sources](#data-sources)
+- [License](#license)
+
+<!-- /TOC -->
+
+
+## Motivation
 
 During my PhD in Germany, I used to bike for 7km a day to reach my office. It took 20min. After 4 years, when I moved in Ile-de-France, I realized how much biking had become part of my daily routine and how much it simplified my life. Unfortunately, in Paris it is neither as common, nor easy, nor safe to bike in comparison to what I used to expect.
 
@@ -30,7 +63,7 @@ This project is about showing the time difference between trips by car and by bi
 * **Steepness** is not important in my opinion: e-bikes, assisted bikes, ..  will come to aid soon.
 * For the **infrastructure**: Have a look [here](http://htmlpreview.github.com/?https://github.com/astyonax/TimingParis/blob/master/StationsBikePark/interactive_map/parkmybike.html) where multi-modal commuters are expected to park their bikes (with OSM data).
 * **Safety**, instead, is indeed a big deal.
-The need for safety and care is already constantly highlighted, for instance, on [Twitter](https://twitter.com/search?q=Paris%20velo&src=typd), and years ago in the [Netherlands](https://bicycledutch.wordpress.com/2011/10/20/how-the-dutch-got-their-cycling-infrastructure/).
+The need for safety is constantly highlighted, for instance, on [Twitter](https://twitter.com/search?q=Paris%20velo&src=typd), and years ago in the [Netherlands](https://bicycledutch.wordpress.com/2011/10/20/how-the-dutch-got-their-cycling-infrastructure/).
 
 
 > **NOTA BENE:** *this is still work in progress. I don't expect big changes affecting the results, but keep an eye open for mistakes/imprecisions.*
@@ -40,7 +73,7 @@ The need for safety and care is already constantly highlighted, for instance, on
 
 *`Data:` Google Maps -- `Period:` February - April 2017 -- `# of trips:` ~21690 -- `Code`: [Time Paris](notebooks/TimeParis.ipynb)*
 
-The plot shows the ETA (estimated time of arrival) for trips between random points within Paris by 3 different means of transport (comparison with transit [here](#transit), comparison including parking time [here](#comparing-trips)).
+The plot shows the ETA (estimated time of arrival) for trips between random points within Paris by 3 different means of transport (comparison with **transit** [here](#transit), comparison including **parking time** [here](#comparing-trips)).
 Shaded points correspond to raw data. Solid line is the mean trend, shaded areas correspond to 1 standard deviation from average. Solid thin black lines correspond to characteristic velocities.
 
 The x-axis has two equivalent scales: **1.** geodetic distance in km, computed with the [haversine rule](https://en.wikipedia.org/wiki/Haversine_formula), and **2.** walking time at 3.5 km/h.
@@ -61,23 +94,23 @@ One can read two tales from the plot about: one for distances shorter than 5km, 
 
 In this 2011 [study](http://dl.acm.org/citation.cfm?id=2560188), it is shown (fig. 4) that the bike trip length is about 2km, in sync with the pricing policy, and may be within the last-mile (fig. 3) for most Velib users. The plot above shows that 2km is just about half the convenient distance.
 
-## Comparing trips
+### Comparing trips
 
 ![plots/inside_hist_dist_mode.png](plots/inside_hist_dist_mode.png  "Histogram of trips with are more convenient by car or bike versus traveled distance")
 
-*(**left**) The two histograms show the distribution of traveled distance by means of transport. (**right**) Distribution of geodetic distances only of convenient trip  by means of transport.  Bin width: 1 km. [[Code](notebooks/TimeParis-plots-kgCO2.ipynb)]*
+*(**left**) The histograms show the distribution of traveled distance by means of transport. (**right**) Distribution of geodetic distances  by most-convenient means of transport.  Bin width: 1 km. [[Code](notebooks/TimeParis-plots-kgCO2.ipynb)]*
 
-The histogram on the left panel shows that for, the same departures and destinations, cars may need longer trajectories than bikes.
-Is this in contradiction with the previous observation that bikes and cars may share the same network constraints? Since the histogram begin to diverge at about 5km, it can be that the difference is due to the periferique: a path in the periferique is faster but longer than in regular streets.
+The histogram on the left panel shows that for the same departures and destinations cars may need longer trajectories than bikes.
+Is this in contradiction with the previous observation that bikes and cars may share the same network constraints? Since the histogram begin to diverge at about 5km, the contradiction may be solved assuming that longest paths are on the periferique: a path in the periferique is faster but longer than in regular streets.
 
-On the right panel I show the histogram of geodetic distances for convenient trips by means of transport.
+On the right panel I show the histogram of geodetic distances for trips by convenient means of transport.
 Turns out that **~20%** of the trips are convenient by bike, and about 30% for trips shorter than 5 km.
 
 ![](plots/fraction_vs_distance_inside.png)|![](plots/on_parking_time_inside.png)
 :--------------------:|:---------------------:
 *Plot of the fraction of convenient bike trips versus geodetic distance*|*Plot of fraction of convenient bike trips versus hypothetical parking time*
 
-The plot on the left shows that, currently, trips shorter than 2 km have more than 50% probability of being convenient by bike. The plot on the right shows that if parking takes just 5 min, then bike trips are more convenient about ~60% of the times, instead of ~20%.
+The plot on the left shows that in trips shorter than 2 km bicycling is convenient half of the times. The average value for all probed distances is the 20% seen above. *Surprisingly*, the plot on the right shows that when parking takes just 5 min, then bike trips are more convenient about ~60% of the times instead of ~20%.
 
 ### CO<sub>2</sub> production
 ![plots/inside_hist_kgco2_mode.png](plots/inside_hist_kgco2_mode.png  "plots/inside_hist_kgco2_mode.png")
@@ -95,7 +128,7 @@ Hence they take away a smaller part of the total CO~2~ production.
 >
 > Nonetheless, things do not need to be so dark. I ignored a  feedback mechanism: removing 20% of cars from the network may lead to a less congested traffic which, in turn, would reduce it's own footprint, and facilitate car trips of those who really need it (taxis, deliveries, ..)
 
-## Structure/Network
+### Structure/Network
 
 In the second figure we have seen that about 20% of randomly chosen trips in Paris are worth to be done by bike.
 Here we explore the network properties of the ways that are more convenient to cars or to bikes.
@@ -129,21 +162,23 @@ The map above shows the backbones of Paris either for driving or bicycling.
 At first sight, there is a sort of ring of boulevards inside Paris which may be used to enhance and simplify the life of bikers.
 Thus, one may designate car-oriented boulevards and bike-oriented boulevard, enhancing the traffic isolation.
 
-#### Bike vs Car isolation?
+#### Bikes vs Cars isolation?
 
 ![](plots/inside_conveniency.png)|![](plots/outin_conveniency.png)
 :--------------------:|:---------------------:
 *In red, the backbones of cars. In blue the backbones for bikes. Surprisingly there is a strong separation among the two networks.*|*Same as on the left, but for trip entering in Paris from the suburbs.*
 
-It is known that the best way to keep bicyclers safe is to physically isolate the bike ways from regular streets. This poses a problem of space in the already crowded city of Paris. At the same time, one would like to optimize the bike networks, e.g. by creating bike highways, thus giving the option to travel via "high-speed" routes for bike, which would so have an important selling point with respect to cars.
+It is known that the best way to keep bicyclers safe is to physically isolate the bicycling ways from regular streets. This poses a problem of space in the already crowded city of Paris. At the same time, one would like to optimize the bike networks, e.g. by creating bike highways, thus giving the option to travel via "high-speed" routes for bike, which would so have an important selling point with respect to cars. Remember that in Paris "high-speed" is just an average velocity of more than 12 km/h (see first plot).
 
-How far is Paris from this separation then? In the maps above I visualize "street-hubs". Usually hubs are important nodes, and streets are edges between nodes. But we can reverse this relation, in the dual of the network graph. So street-hubs as a very important streets, which are highly traversed (and important places become edges connecting streets).
+How far is Paris from this separation then? In the maps above I visualize "street-hubs".
 
-The maps above show, then, that the networks in Paris is already self-organizing in the direction of different street-hubs for cars and for bikes: red routes, corresponding to important routes for cars (e.g. Periferique, some quai, around Les Invalides), are clearly separated from those in blue, which are street-hub for bikes.
+>Usually hubs are important nodes and streets are edges between nodes. But we can reverse this relation in the dual of the network graph, by mapping nodes to streets and edges to places (which connect streets). In this graph street-hubs as very important nodes, which are highly traversed (and important places become edges connecting streets).
+
+The maps above shows that the networks in Paris is already self-organizing in the direction of spatially separeted street-hubs for cars and for bikes. The red routes (mostly boulevards) are important streets for cars and are clearly separated from those in blue, which are street-hub for bikes. Shades of red and blue are used to indicate an intermediate importance, with white meaning that the area is equally important for both means of transport.
 The separation occurs as well in trips entering Paris, as shown in the map on the right.
 
 In particular note that bikes hubs (in blue) almost form an inner ring with about 5km of diameter inside Paris, with radial spikes connecting the ring at 10km of diameter, and the roads connecting the northern suburbs.
-Improving the quality, safety, and speed on those highlighted boulevard would be strongly beneficial to the cycling population (imho).
+Improving the quality, safety, connectivity, and speed on those highlighted boulevard would be strongly beneficial to the bicycling population (imho).
 
 
 >Before further thoughts, I need to compare these results with those obtainable with the alternative routing engines (e.g. Graphhopper, ORSM, bbbike, BRouter.de,etc..) to remove google maps' specific bias. Note also that geometric factors (e.g. dilution as we move from center to the buondary of Paris may need to be corrected)
@@ -308,8 +343,8 @@ The ETA for transit is a total time which sums together approaching, waiting, an
 **Note** that comparison of driving time versus transit time is **unfair** because transit time counts also the approaching and waiting times, for cars and bikes only the travel time is considered.
 Although with the current protocol transit time is, at worst, just 15 min slower than driving time, which seems about the dead time one would expect because of parking and approaching, I do not have a quantitative estimate. Hence, *I did the analysis ignoring the transit time*.
 
-# Literature
-## Cited academic articles
+## Literature
+### Cited academic articles
 
 * [A tale of two cities. Vulnerabilities of the London and Paris transit networks](https://arxiv.org/pdf/1206.2599.pdf)
 * [Spatio-temporal Clustering and Forecasting Method for Free-Floating Bike Sharing Systems](https://link.springer.com/chapter/10.1007/978-3-319-48944-5_23)
@@ -337,7 +372,7 @@ Although with the current protocol transit time is, at worst, just 15 min slower
 
 
 
-## Online
+### Online
 * [If you build it, they will ride: pop-up bike lanes prove that demand exists](http://bicycletimesmag.com/if-you-build-it-they-will-ride-pop-up-bike-lanes-prove-that-demand-exists/)
 * [This ingenious illustration reveals how much space we give to cars](http://uk.businessinsider.com/car-illustration-karl-jilg-2017-4?utm_content=buffer5ea4b&utm_medium=social&utm_source=facebook.com&utm_campaign=buffer-ti&r=US&IR=T)
 * [Paris : l'impact réel de la piétonnisation des voies sur berges](http://www.lejdd.fr/JDD-Paris/EXCLUSIF-Paris-l-impact-reel-de-la-pietonnisation-des-voies-sur-berges-812212)
@@ -353,7 +388,7 @@ Although with the current protocol transit time is, at worst, just 15 min slower
 * [How the Dutch got their cycling infrastructure](https://bicycledutch.wordpress.com/2011/10/20/how-the-dutch-got-their-cycling-infrastructure/)
 * [“En 2030, il y aura plus de vélos que d'autos dans Paris” - Sortir - Télérama.fr](http://www.telerama.fr/sortir/en-2030,-il-y-aura-plus-de-velos-que-dautos-dans-paris,n5196342.php?utm_campaign=Echobox&utm_medium=Social&utm_source=Twitter#link_time=1507627023)
 
-## Data Sources
+### Data Sources
 * [1][Carbon footprint calculator](https://carbonfund.org/how-we-calculate/)
 * [2][ETA -- co2 production by bike](https://www.eta.co.uk/2011/12/13/co2-emissions-from-cycling-revealed/)
 * [OpenData RATP](https://data.ratp.fr/explore/dataset/trafic-annuel-entrant-par-station-du-reseau-ferre-2014/)
