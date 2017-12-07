@@ -4,7 +4,7 @@
 ![](plots/inside_conveniency.png)
 
 
-When is it convenient to use the bike in Paris? or when is it to use the car? Or just if there are areas which are bike-fobic, or vice-versa car-fobic? Did you ever though that the _periferique_ is like a filter blocking bikes on its sides?
+When is it convenient to use the bike in Paris? or when is it to use the car? Or just if there are areas which are bike-fobic, or vice-versa car-fobic? Did you ever though that the _*periferique*_ is like a filter blocking bikes on its sides?
 
 In this report I attempt to give an answer to these questions.
 If you live in Paris, you will probably find the results not so surprising and already proven by experience. But this is an important point too: shifting from an `anecdotal` knowledge about mobility to a`factual` one.
@@ -77,31 +77,31 @@ The plot shows the ETA (estimated time of arrival) for trips between random poin
 Shaded points correspond to raw data. Solid line is the mean trend, shaded areas correspond to 1 standard deviation from average. Solid thin black lines correspond to characteristic velocities.
 
 The x-axis has two equivalent scales: **1.** geodetic distance in km, computed with the [haversine rule](https://en.wikipedia.org/wiki/Haversine_formula), and **2.** walking time at 3.5 km/h.
-The mark at 5km is about the radius of the periferique from Notre Dame (shown in the [methods section](#how)).
+The mark at 5km is about the radius of the *periferique* from Notre Dame (shown in the [methods section](#how)).
 
 One can read two tales from the plot about: one for distances shorter than 5km, and one for distances  bigger than 5km.
 
 1. Case of trips shorter than 5km:
 
-	1. Transit is about 10 min slower than both cars and bikes, on average.
-
-	2. Cars and bike have the same speed (12 km/h), meaning that the effective velocity of cars is, on average, even less than half of the proposed limit of [30km/h](https://leparisien.fr/paris-75005/tout-paris-a-30-km-h-c-est-pour-demain-14-09-2017-7261308.php). But bikes are clearly slower than needed. My guess is that it's a *network limitation* as both means are constrained by the same traffic lights.
+	Cars and bike have the same speed (12 km/h), meaning that the effective velocity of cars is, on average, even less than half of the proposed limit of [30km/h](https://leparisien.fr/paris-75005/tout-paris-a-30-km-h-c-est-pour-demain-14-09-2017-7261308.php). But bikes are clearly slower than needed. My guess is that it's a *network limitation* as both means are constrained by the same traffic lights.
 	Note here that I expect bikes to respect the driving code, and to stop when needed.
 
 2. Case of trips longer than 5 km:
-	1. Here cars hit the periferique and can go faster than bikes. But  my statistics goes down in quality, too.
+	1. Here cars hit the *periferique* and can go faster than bikes. But  my statistics goes down in quality, too.
 	2. Since the average bike speed is constant with distance I think that it's really just constrained by the network, which does not have fast long-distance bike ways.
 
-In this 2011 [study](http://dl.acm.org/citation.cfm?id=2560188), it is shown (fig. 4) that the bike trip length is about 2km, in sync with the pricing policy, and may be within the last-mile (fig. 3) for most Velib users. The plot above shows that 2km is just about half the convenient distance.
+In this 2011 [study](http://dl.acm.org/citation.cfm?id=2560188), it is shown (fig. 4) that the trip length of Velib' is about 2km, in sync with the pricing policy, and may be within the last-mile for most Velib users (fig. 3 same study) . The plot above shows that 2km is just about half the convenient distance.
+The report of displacements in 2015 in Paris (`Le bilan des déplacements en 2015 à Paris`, page ..17) reports a biking time of about 20' on average, which corresponds to 4km at 12km/h.
+Thus, after 4 years, it is measured that bicycling is about to cover its current optimal length. Is this implying that Parisians are self-organizing towards the optimum?
 
-### Comparing trips
+### Comparison between trips
 
 ![plots/inside_hist_dist_mode.png](plots/inside_hist_dist_mode.png  "Histogram of trips with are more convenient by car or bike versus traveled distance")
 
 *(**left**) The histograms show the distribution of traveled distance by means of transport. (**right**) Distribution of geodetic distances  by most-convenient means of transport.  Bin width: 1 km. [[Code](notebooks/TimeParis-plots-kgCO2.ipynb)]*
 
 The histogram on the left panel shows that for the same departures and destinations cars may need longer trajectories than bikes.
-Is this in contradiction with the previous observation that bikes and cars may share the same network constraints? Since the histogram begin to diverge at about 5km, the contradiction may be solved assuming that longest paths are on the periferique: a path in the periferique is faster but longer than in regular streets.
+Is this in contradiction with the previous observation that bikes and cars may share the same network constraints? Since the histogram begin to diverge at about 5km, the contradiction may be solved assuming that longest paths are on the *periferique*: a path in the *periferique* is faster but longer than in regular streets.
 
 On the right panel I show the histogram of geodetic distances for trips by convenient means of transport.
 Turns out that **~20%** of the trips are convenient by bike, and about 30% for trips shorter than 5 km.
@@ -168,17 +168,17 @@ Thus, one may designate car-oriented boulevards and bike-oriented boulevard, enh
 :--------------------:|:---------------------:
 *In red, the backbones of cars. In blue the backbones for bikes. Surprisingly there is a strong separation among the two networks.*|*Same as on the left, but for trip entering in Paris from the suburbs.*
 
-It is known that the best way to keep bicyclers safe is to physically isolate the bicycling ways from regular streets. This poses a problem of space in the already crowded city of Paris. At the same time, one would like to optimize the bike networks, e.g. by creating bike highways, thus giving the option to travel via "high-speed" routes for bike, which would so have an important selling point with respect to cars. Remember that in Paris "high-speed" is just an average velocity of more than 12 km/h (see first plot).
+It is known that the best way to keep bicyclers safe is to physically isolate the bicycling ways from regular streets. This poses a problem of space in the already crowded city of Paris. At the same time, one would like to optimize the bike networks, e.g. by creating bike highways, thus giving the option to travel via "high-speed" routes, which is another important selling point with respect to cars: bikes are much more efficient than cars. Remember that in Paris "high-speed" is just an average velocity of more than 12 km/h (see first plot).
 
 How far is Paris from this separation then? In the maps above I visualize "street-hubs".
 
->Usually hubs are important nodes and streets are edges between nodes. But we can reverse this relation in the dual of the network graph, by mapping nodes to streets and edges to places (which connect streets). In this graph street-hubs as very important nodes, which are highly traversed (and important places become edges connecting streets).
+>Usually hubs are important places (nodes) and streets are edges between nodes. But we can reverse this relation in the dual of the network graph, by mapping nodes to streets and edges to places (which connect streets). In this graph street-hubs as very important nodes, which are highly traversed (and important places become edges connecting streets).
 
 The maps above shows that the networks in Paris is already self-organizing in the direction of spatially separeted street-hubs for cars and for bikes. The red routes (mostly boulevards) are important streets for cars and are clearly separated from those in blue, which are street-hub for bikes. Shades of red and blue are used to indicate an intermediate importance, with white meaning that the area is equally important for both means of transport.
 The separation occurs as well in trips entering Paris, as shown in the map on the right.
 
 In particular note that bikes hubs (in blue) almost form an inner ring with about 5km of diameter inside Paris, with radial spikes connecting the ring at 10km of diameter, and the roads connecting the northern suburbs.
-Improving the quality, safety, connectivity, and speed on those highlighted boulevard would be strongly beneficial to the bicycling population (imho).
+Improving the quality, safety, connectivity, and speed on those highlighted boulevard would be strongly beneficial to the bicycling population.
 
 
 >Before further thoughts, I need to compare these results with those obtainable with the alternative routing engines (e.g. Graphhopper, ORSM, bbbike, BRouter.de,etc..) to remove google maps' specific bias. Note also that geometric factors (e.g. dilution as we move from center to the buondary of Paris may need to be corrected)
@@ -188,7 +188,7 @@ Improving the quality, safety, connectivity, and speed on those highlighted boul
 ![Plan Velo Paris](bike_plan/engagements_schema.jpg)
 *From https://planvelo.paris/assets/images/pages/engagements_schema.jpg*
 
-Comparing the *Plan Velo* to the previous maps, we see that there are similarities (of course), as well as differences between the fastest routes for bikes and the position of future and present bicycle ways. It is difficult to draw generic explanations for this phenomenon (and to visualize the differences). Nonetheless further policies concerning the  expansion of the bike network may be willing take under consideration the current state.
+Comparing the *Plan Velo* to the previous maps, we see that there are many similarities between the created bicycle ways and the bicycle hubs. As well as differences. It is difficult to draw generic explanations for this phenomenon (and to visualize the differences). Nonetheless further policies concerning the  expansion of the bike network may be willing take under consideration the current state.
 
 ### Clusters
 
@@ -228,7 +228,7 @@ Finally, the Seine naturally generates segregation because you need bridges to c
 ## Part 2 - How to enter in the city
 
 So, assuming that Parisian know their city, where are all the cars coming from?
-Well, one safe bet is from outside Paris. Indeed, the periferique wakes up about 1hr before the city [(hearbeat-traffic)](https://github.com/astyonax/heartbeat-traffic).The following plots are very similar to the previous ones so the explanation will be slim.
+Well, one safe bet is from outside Paris. Indeed, the *periferique* wakes up about 1hr before the city [(hearbeat-traffic)](https://github.com/astyonax/heartbeat-traffic).The following plots are very similar to the previous ones so the explanation will be slim.
 For the following analysis, starting points up to 10km from Paris (or 20km from Notre Dame) where connected to ending points inside Paris.
 This implies that the maximum trip is about 25km.. about enough for the average biker! The dataset comprises 22970 trips.
 
@@ -275,7 +275,7 @@ Note also that the northern part of Paris seems more bike-oriented. However,  th
 *Histogram for all trajectories either by bike or by car. This highlights the "attractor", or the streets which are more probably visited by the chosen mean of transport. [[Code](notebooks/TimeParis-plots-map.ipynb)].*
 
 These last four figures highlight the streets which are most visited when driving (left) or bicycling (right) entering Paris from its nearest suburbs.
-For cars it does not make much of a difference that we plot only the optimal ways (top) or all of them (bottom). Indeed, only ~10% of the analyzed paths are not convenient by car. In comparison to the traffic just inside Paris (see above), it is evident and [expected](https://github.com/astyonax/heartbeat-traffic) that the periferique plays a central role.
+For cars it does not make much of a difference that we plot only the optimal ways (top) or all of them (bottom). Indeed, only ~10% of the analyzed paths are not convenient by car. In comparison to the traffic just inside Paris (see above), it is evident and [expected](https://github.com/astyonax/heartbeat-traffic) that the *periferique* plays a central role.
 For bicycles instead, the top plot on the right clearly shows that the Seine acts like a natural barrier, and that most of the proposed work to render the access routes to Paris more bike-friendly are indeed needed (see above Paris Bike Plan 2010).
 The bottom plot highlights the possible bicycling highways (**TODO**: same as before, remove Google Maps bias).
 
@@ -391,8 +391,11 @@ Although with the current protocol transit time is, at worst, just 15 min slower
 ### Data Sources
 * [1][Carbon footprint calculator](https://carbonfund.org/how-we-calculate/)
 * [2][ETA -- co2 production by bike](https://www.eta.co.uk/2011/12/13/co2-emissions-from-cycling-revealed/)
+* [3][Le bilan des déplacements en 2015 à Paris](https://api-site-cdn.paris.fr/images/88047)
 * [OpenData RATP](https://data.ratp.fr/explore/dataset/trafic-annuel-entrant-par-station-du-reseau-ferre-2014/)
 * [Air pollution in Paris](https://www.airparif.asso.fr/#)
+* [GoogleMaps](https://maps.google.com)
+
 
 # License
 The movies, animation, plots, and texts (said the content) of this project are licensed under the [Creative Commons Attribution Share Alike 4.0](https://creativecommons.org/licenses/by-sa/4.0/) license, and the underlying source code used to gather, collect, analyze, format, render, and display that content is licensed under the [GNU GPLv3](http://www.gnu.org/licenses/gpl-3.0.txt) license.
