@@ -90,7 +90,7 @@ One can read two tales from the plot about: one for distances shorter than 5km, 
 	1. Here cars hit the *periferique* and can go faster than bikes. But  my statistics goes down in quality, too.
 	2. Since the average bike speed is constant with distance I think that it's really just constrained by the network, which does not have fast long-distance bike ways.
 
-In this 2011 [study](http://dl.acm.org/citation.cfm?id=2560188), it is shown (fig. 4) that the trip length of Velib' is about 2km, in sync with the pricing policy, and may be within the last-mile for most Velib users (fig. 3 same study) . The plot above shows that 2km is just about half the convenient distance.
+In this [study](http://dl.acm.org/citation.cfm?id=2560188) with data from 2011, it is shown (fig. 4) that the trip length of Velib' is about 2km, in sync with the pricing policy, and may be within the last-mile for most Velib users (fig. 3 same study) . The plot above shows that 2km is just about half the convenient distance.
 The report of displacements in 2015 in Paris (`Le bilan des déplacements en 2015 à Paris`, page ..17) reports a biking time of about 20' on average, which corresponds to 4km at 12km/h.
 Thus, after 4 years, it is measured that bicycling is about to cover its current optimal length. Is this implying that Parisians are self-organizing towards the optimum?
 
