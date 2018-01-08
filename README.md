@@ -323,15 +323,15 @@ Finally, building on this works it will be interesting to:
 ## Appendix
 ### How
 The data is obtained by querying Google maps API for the travel time at _8am_ on Wednesdays (see real traffic data at 8am in my [parallel project](https://github.com/astyonax/heartbeat-traffic) ).
-This means that I don't compare the actual usage of the network, because for Paris we don't have the datasets. The only study I know which had access to Velibs trips is from 2011 [[here]](http://dl.acm.org/citation.cfm?id=2560188). I know of no study with similar data on trips by car or transit. Clearly it would be very interesting to compare directly Velib trajectories with respect to car or taxis trajectories, as done in here for [NYC](http://toddwschneider.com/posts/taxi-vs-citi-bike-nyc/), but at the moment I didn't find a way.
+This means that I don't compare the actual usage of the network because for Paris we don't have the datasets. The only study I know which had access to Velibs trips is from 2014 (with data from Apr. 2011) [[here]](http://dl.acm.org/citation.cfm?id=2560188). I know of no study with similar data on trips by car or transit. Clearly it would be very interesting to compare directly Velib trajectories with respect to car or taxis trajectories, as done in here for [NYC](http://toddwschneider.com/posts/taxi-vs-citi-bike-nyc/), but at the moment I didn't find a way.
 
-Since I used Google's data and routing engine, I don't have full control of the machinery, which behaves like a black-box. My reasoning behind it are: 1. simplicity (it just works) 2. people use it and follow its indications, so it may even be less worse than expected 3. the proposed trajectories pass through way-points with the same density to the [real-data](https://github.com/astyonax/heartbeat-traffic) 4. with custom routing engine (e.g. OSRM) we may as well be quite wrong 5. for bikes, alternative routing software exists, but it is not well tested in Paris. So, let it be Google.
+Since I used Google's data and routing engine, I don't have full control of the machinery, which behaves like a black-box. My reasoning behind it are: 1. simplicity (it just works) 2. people use it and follow its indications, so it may even be less worse than expected 3. the proposed trajectories pass through way-points with the same density of the [real-data](https://github.com/astyonax/heartbeat-traffic) 4. with a custom routing engine (e.g. OSRM) we may as well be quite wrong 5. for bikes, alternative routing software exists, but it is not well tested in Paris. So, let it be Google.
 
 ### How many points
 ![plots/average_distance.png](plots/average_distance.png)
 *Distribution of departure points either inside or outside Paris [[Code]](notebooks/SamleParis.ipynb).*
 
-The plot above shows that the average distance of departure points is 100 m and 150 m inside and outside Paris, respectively.
+The plot above shows that the average distance between departure points is 100 m and 150 m inside and outside Paris, respectively.
 
 ### Transit
 ![plots/inside_timing.png](plots/inside_timing_full.png  "ETA for trips inside Paris")
